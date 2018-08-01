@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p th:text="#{app.name}">Nazwa aplikacji</p>
+<p th:text="'Witaj' + ${name} + '!'" />
+
+
+<span sec:authorize="isAnonymous()">
+    <form><button><a href="/login">Zaloguj </a></button></form>
+</span>
+
+
+<span sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Wyloguj"/>
+    </form>
+</span>
+<p sec:authorize="isAuthenticated()">
+<p>Zalogowany jako: <span sec:authentication="name"></span></p>
+<p>Posiada role: <span sec:authentication="authorities"></span></p>
+</p>
+<p> <a href="/equipment"> Menu Equipments</a>
+
+</body>
+</html>

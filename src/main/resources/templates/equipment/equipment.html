@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Equipment menu</h3>
+
+<table border="5px">
+
+    <tr>
+        <td>Name</td>
+        <td>Year of production</td>
+        <td>Action</td>
+    </tr>
+
+    <tr th:block th:each="equip : ${equipment}">
+            <td th:text="${equip.name}"></td>
+            <td th:text="${equip.yearOfProduction}"></td>
+            <td> <a th:href="'/update-equip/' + ${equip.id}">Update</a> / <a th:href="'/delete-equip/' + ${equip.id}">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>
