@@ -79,4 +79,16 @@ public class OrderController {
         model.addAttribute("order", order);
         return "order/mech";
     }
+
+    @RequestMapping("/ordersHistory")
+    public String history(Model model) {
+        List<Order> order = orderRepository.findAllByName_Id(3);
+        model.addAttribute("order", order);
+        return "order/mech";
+    }
+
+    @RequestMapping("/panel-mechanic")
+    public String panelMechanic(Model model) {
+        return "menu/mechanic";
+    }
 }

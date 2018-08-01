@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>Order list</h3>
-
+<th:block th:include="fragments/header :: header"></th:block>
 <table border="5px">
 
     <tr>
@@ -14,6 +14,8 @@
         <td>Created</td>
         <td>Ended</td>
         <td>Created by</td>
+        <td>Action</td>
+        <td>Ended by</td>
     </tr>
 
     <tr th:block th:each="u : ${order}">

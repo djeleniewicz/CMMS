@@ -27,7 +27,7 @@ public class UserController {
     public String users(Model model){
         List<User> user = userRepository.findAll();
         model.addAttribute("user", user);
-        return "order";
+        return "user/user";
     }
 
 

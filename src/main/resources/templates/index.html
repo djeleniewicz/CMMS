@@ -10,7 +10,7 @@
 <p th:text="'Witaj ' + ${name} + '!'" />
 
 
-<span sec:authorize="isAnonymous()">
+<span sec:authorize="!isAuthenticated()">
     <form><button><a href="/login">Zaloguj </a></button></form>
 </span>
 
