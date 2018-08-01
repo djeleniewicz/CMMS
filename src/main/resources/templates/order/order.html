@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Equipment menu</h3>
+
+<button><a th:href="'/add-order/'">Add new order</a></button>
+
+
+<table border="5px">
+
+    <tr>
+        <td>Type</td>
+        <td>Created</td>
+        <td>Ended</td>
+        <td>Created by</td>
+    </tr>
+
+    <tr th:block th:each="u : ${order}">
+            <td th:text="${u.name}"></td>
+            <td th:text="${u.created}"></td>
+            <td th:text="${u.ended}"></td>
+            <td th:text="${u.user}"></td>
+            <td> <a th:href="'/update-order/' + ${u.id}">Update</a> / <a th:href="'/delete-order/' + ${u.id}">Delete</a></td>
+    </tr>
+</table>
+
+<a href="/">Back to home</a>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> formularz</h1>
+
+<form method="post" th:object="${order}" th:action="@{/add-order}">
+    <div>Type: <input th:each="item : ${name}" type="radio" th:value="${item.id}" th:text="${item.name}" name="name"/> </div>
+    <div>Equipment<br><input type="number" name="equipment"/> </div>
+    <div>Note <br><input type="text" name="note"/></div>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div><input type="submit" value="submit"></div>
+</form>
+
+<div><a href="/equipment">Equipments list</a>
+</div>
+<div><a href="/">Back to home</a>
+</div>
+</body>
+</html>
