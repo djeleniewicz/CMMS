@@ -1,8 +1,6 @@
 package pl.dominik.cmms.entity.equipment;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "inspection")
@@ -11,7 +9,7 @@ public class Inspection {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private Date dateInspection;
+    private String dateInspection;
 
     public int getId() {
         return id;
@@ -21,11 +19,11 @@ public class Inspection {
         this.id = id;
     }
 
-    public Date getDateInspection() {
+    public String getDateInspection() {
         return dateInspection;
     }
 
-    public void setDateInspection(Date dateInspection) {
+    public void setDateInspection(String dateInspection) {
         this.dateInspection = dateInspection;
     }
 }

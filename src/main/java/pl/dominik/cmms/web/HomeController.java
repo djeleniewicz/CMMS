@@ -25,7 +25,7 @@ public class HomeController {
     }
 
     @GetMapping("/admin")
-    public String admin() { return "security/panel"; }
+    public String admin() { return "admin/login"; }
 
     @RequestMapping("/create-user")
     @ResponseBody

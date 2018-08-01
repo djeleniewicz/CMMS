@@ -7,12 +7,12 @@
 <body>
 <h1> formularz</h1>
 
-<form method="post" th:object="${equipment}" th:action="@{/add-equip}">
+<form method="post" th:object="${mechanic}" th:action="@{/add-mech}">
     <div>Name<br><input type="text" name="name" placeholder="name"></div>
-   <div>Date of production<br><input type="date" name="yearOfProduction"></div>
+    <div>password<br><input type="password" name="password" placeholder="password"></div>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <input type="hidden" th:name="${id}"/>
     <div><input type="submit" value="submit"></div>
 </form>
-<a href="/">Back to home</a>
 </body>
 </html>
