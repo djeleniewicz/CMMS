@@ -15,12 +15,19 @@
     <tr>
         <td>Name</td>
         <td>Year of production</td>
+        <td>Status</td>
+        <td>Location</td>
+        <td>Inspection after[months]</td>
         <td>Action</td>
     </tr>
 
     <tr th:block th:each="equip : ${equipment}">
             <td th:text="${equip.name}"></td>
             <td th:text="${equip.yearOfProduction}"></td>
+            <td th:text="${equip.status}"></td>
+            <td th:text="${equip.location}"></td>
+            <td th:text="${equip.inspection}"></td>
+
             <td> <a th:href="'/update-equip/' + ${equip.id}">Update</a> / <a th:href="'/delete-equip/' + ${equip.id}">Delete</a></td>
     </tr>
 </table>

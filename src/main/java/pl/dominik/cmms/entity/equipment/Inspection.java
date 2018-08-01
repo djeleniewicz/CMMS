@@ -26,4 +26,9 @@ public class Inspection {
     public void setDateInspection(String dateInspection) {
         this.dateInspection = dateInspection;
     }
+
+    @Override
+    public String toString() {
+        return dateInspection;
+    }
 }
