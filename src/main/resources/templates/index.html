@@ -7,7 +7,7 @@
 <body>
 
 <p th:text="#{app.name}">Nazwa aplikacji</p>
-<p th:text="'Witaj' + ${name} + '!'" />
+<p th:text="'Witaj ' + ${name} + '!'" />
 
 
 <span sec:authorize="isAnonymous()">
@@ -24,7 +24,9 @@
 <p>Zalogowany jako: <span sec:authentication="name"></span></p>
 <p>Posiada role: <span sec:authentication="authorities"></span></p>
 </p>
-<p> <a href="/equipment"> Menu Equipments</a>
+<p> <a href="/equipment"> Menu Equipments</a> </p>
+<p> <a href="/user"> Menu User</a> </p>
+
 
 </body>
 </html>

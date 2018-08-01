@@ -20,7 +20,6 @@ public class EquipmentController {
     @RequestMapping("/equipment")
     public String homeEquipment(Model model) {
         List<Equipment> equipment = equipmentRepository.findAll();
-        System.out.println(equipment);
         model.addAttribute("equipment", equipment);
         return "equipment/equipment";
     }
@@ -35,7 +34,7 @@ public class EquipmentController {
     @RequestMapping(value = "/add-equip", method = RequestMethod.POST)
     public String saveEquip(@ModelAttribute Equipment equipment) {
         equipmentRepository.save(equipment);
-        return "redirect:/equipment/equipment";
+        return "redirect:/equipment";
     }
 
     @RequestMapping("/update-equip/{id}")
@@ -51,4 +50,20 @@ public class EquipmentController {
         equipmentRepository.save(equipment);
         return "redirect:/equipment";
     }
+
+
+    @RequestMapping("/delete-equip/{id}")
+    public String delEquip(@PathVariable int id) {
+        Equipment equipment = equipmentRepository.findOne(id);
+        equipmentRepository.delete(equipment);
+        return "redirect:/equipment";
+    }
+
+//    @RequestMapping(value = "/confirmDelEquip/{id}", method = RequestMethod.POST)
+//    public String delEquipAcc(@PathVariable int id) {
+//        Equipment equipment = equipmentRepository.findOne(id);
+//        equipmentRepository.delete(equipment);
+//        return "redirect:/equipment";
+//    }
+
 }

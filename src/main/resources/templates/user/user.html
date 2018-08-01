@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Equipment menu</h3>
+
+<button><a th:href="'/add-user/'">Add new user</a></button>
+
+
+<table border="5px">
+
+    <tr>
+        <td>Username</td>
+        <td>enabled</td>
+    </tr>
+
+    <tr th:block th:each="u : ${user}">
+            <td th:text="${u.username}"></td>
+            <td th:text="${u.enabled}"></td>
+            <td> <a th:href="'/update-user/' + ${u.id}">Update</a> / <a th:href="'/delete-user/' + ${u.id}">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>

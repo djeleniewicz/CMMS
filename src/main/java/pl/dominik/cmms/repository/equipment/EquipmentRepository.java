@@ -13,6 +13,6 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Integer> {
 
     Equipment findByName(String name);
 
-//    @Query("select b from Equipment b")
-//    List<Equipment> findAlls();
+    @Query("delete from Equipment b where b.id =?1")
+    Equipment deleteById(int id);
 }
