@@ -10,20 +10,22 @@
 <button><a th:href="'/add-equip/'">Add new equipment</a></button>
 
 
-<table border="5px">
-
+<table class="table-dark">
+    <thead>
     <tr>
-        <td>Id</td>
-        <td>Name</td>
-        <td>Year of production</td>
-        <td>Status</td>
-        <td>Location</td>
-        <td>Inspection after[months]</td>
-        <td>Action</td>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Year of production</th>
+        <th scope="col">Status</th>
+        <th scope="col">Location</th>
+        <th scope="col">Inspection after[months]</th>
+        <th scope="col">Action</th>
     </tr>
-
+    </thead>
+    <tbody>
     <tr th:block th:each="equip : ${equipment}">
-            <td th:text="${equip.id}"></td>
+
+            <th scope="row" th:text="${equip.id}"></th>
             <td th:text="${equip.name}"></td>
             <td th:text="${equip.yearOfProduction}"></td>
             <td th:text="${equip.status}"></td>
@@ -32,6 +34,8 @@
 
             <td> <a th:href="'/update-equip?id=' + ${equip.id}">Update</a> / <a th:href="'/delete-equip/' + ${equip.id}">Delete</a></td>
     </tr>
+    </tbody>
+    
 </table>
 <a href="/">Back to home</a>
 </body>

@@ -7,9 +7,10 @@
 <body>
 <h3>Order list</h3>
 <th:block th:include="fragments/header :: header"></th:block>
-<table border="5px">
+<table class="table table-dark">
 
     <tr>
+        <td>Equipment</td>
         <td>Type</td>
         <td>Created</td>
         <td>Note</td>
@@ -20,6 +21,7 @@
     </tr>
 
     <tr th:block th:each="u : ${order}">
+            <td th:text="${u.equipment}"/>
             <td th:text="${u.name}"></td>
             <td th:text="${u.created}"></td>
             <td th:text="${u.note}"></td>

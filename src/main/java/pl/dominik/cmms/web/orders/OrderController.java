@@ -50,6 +50,11 @@ public class OrderController {
         return nameRepository.findAllByNameOrName("DAMAGE", "INSPECTION");
     }
 
+    @ModelAttribute("equipments")
+    public List<Equipment> selectEquipment() {
+        return equipmentRepository.findAll();
+    }
+
     @Secured("ROLE_ADMIN")
     @RequestMapping("/order")
     public String homeOrder(Model model) {

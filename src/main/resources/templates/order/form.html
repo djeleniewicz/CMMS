@@ -12,9 +12,9 @@
     <td>Type: <input th:each="item : ${name}" type="radio" th:value="${item.id}" th:text="${item.name}" name="name"/> </td>
     <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
     </tr>
-    <tr>
-    Equipment<input type="number" name="equipment"/>
-    </tr>
+        <tr>
+            <td>Equipment: <input th:each="item : ${equipments}" type="radio" th:value="${item.id}" th:text="${item.name} +' location: ' + ${item.location}" name="equipments"/> </td>
+        </tr>
     <tr>
     <td><div>Note <input type="text" th:type="*{note}" name="note"/></div></td>
         <td th:if="${#fields.hasErrors('note')}" th:errors="*{note}">Name Error</td>
