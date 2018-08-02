@@ -5,10 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.mechanics.Mechanic;
-import pl.dominik.cmms.entity.security.Role;
+import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.repository.security.MechanicRepository;
 import pl.dominik.cmms.repository.security.RoleRepository;
 import pl.dominik.cmms.service.security.MechanicService;
+import pl.dominik.cmms.service.security.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,11 +20,13 @@ public class MechanicController {
     private final MechanicRepository mechanicRepository;
     private final MechanicService mechanicService;
     private final RoleRepository roleRepository;
+    private final UserService userService;
 
-    public MechanicController(MechanicRepository mechanicRepository, MechanicService mechanicService, RoleRepository roleRepository) {
+    public MechanicController(MechanicRepository mechanicRepository, MechanicService mechanicService, RoleRepository roleRepository, UserService userService) {
         this.mechanicRepository = mechanicRepository;
         this.mechanicService = mechanicService;
         this.roleRepository = roleRepository;
+        this.userService = userService;
     }
 
     @RequestMapping("/mechanic")
@@ -46,6 +49,10 @@ public class MechanicController {
         if (result.hasErrors()) {
             return "mechanics/form";
         }
+        User user = new User();
+        user.setUsername(mechanic.getName());
+        user.setPassword(mechanic.getPassword());
+        userService.saveMechanic(user,mechanic);
         mechanicService.saveMechanic(mechanic);
         return "redirect:/mechanic";
     }

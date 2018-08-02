@@ -12,8 +12,10 @@
     <tr>
         <td>Type</td>
         <td>Created</td>
+        <td>Note</td>
         <td>Ended</td>
         <td>Created by</td>
+        <td>End comment</td>
         <td>Ended by</td>
         <td>Action</td>
     </tr>
@@ -21,12 +23,15 @@
     <tr th:block th:each="u : ${order}">
             <td th:text="${u.name}"></td>
             <td th:text="${u.created}"></td>
+            <td th:text="${u.note}"></td>
             <td th:text="${u.ended}"></td>
             <td th:text="${u.user}"></td>
-            <td> <a th:href="'/update-order/' + ${u.id}">End it</a></td>
+            <td th:text="${u.end}"></td>
+            <td th:text="${u.mechanic}"></td>
+            <td> <a th:href="'/end-order/' + ${u.id}">End it</a></td>
     </tr>
 </table>
 
-<a href="/">Back to home</a>
+
 </body>
 </html>

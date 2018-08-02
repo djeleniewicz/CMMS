@@ -2,10 +2,7 @@ package pl.dominik.cmms.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.service.security.UserService;
 
@@ -24,15 +21,5 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/admin")
-    public String admin() { return "admin/login"; }
 
-    @RequestMapping("/create-user")
-    @ResponseBody
-    public void createUser(){
-        User user = new User();
-        user.setUsername("dominik");
-        user.setPassword("dominik");
-        userService.saveUser(user);
-    }
 }

@@ -63,4 +63,9 @@ public class Mechanic {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

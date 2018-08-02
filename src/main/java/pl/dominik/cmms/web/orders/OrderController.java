@@ -10,6 +10,7 @@ import pl.dominik.cmms.entity.orders.Order;
 import pl.dominik.cmms.repository.equipment.EquipmentRepository;
 import pl.dominik.cmms.repository.order.NameRepository;
 import pl.dominik.cmms.repository.order.OrderRepository;
+import pl.dominik.cmms.repository.security.MechanicRepository;
 
 import javax.validation.Valid;
 import java.sql.Date;
@@ -21,11 +22,14 @@ public class OrderController {
     private final OrderRepository orderRepository;
     private final NameRepository nameRepository;
     private final EquipmentRepository equipmentRepository;
+    private final MechanicRepository mechanicRepository;
 
-    public OrderController(OrderRepository orderRepository, NameRepository nameRepository, EquipmentRepository equipmentRepository) {
+
+    public OrderController(OrderRepository orderRepository, NameRepository nameRepository, EquipmentRepository equipmentRepository, MechanicRepository mechanicRepository) {
         this.orderRepository = orderRepository;
         this.nameRepository = nameRepository;
         this.equipmentRepository = equipmentRepository;
+        this.mechanicRepository = mechanicRepository;
     }
 
     @ModelAttribute("name")
@@ -125,6 +129,29 @@ public class OrderController {
         List<Equipment> list = equipmentRepository.findAll();
         model.addAttribute("equipment", list);
         return "order/equipment";
+    }
+
+
+
+    @RequestMapping("/end-order/{id}")
+    public String endOrder(@PathVariable int id, Model model) {
+        Order order = orderRepository.findOne(id);
+        model.addAttribute("order", order);
+        return "/order/formEnd";
+    }
+
+    @RequestMapping(value = "/end-order", method = RequestMethod.POST)
+    public String endOrder(@RequestParam int id, @ModelAttribute Order order) {
+        String end = order.getEnd();
+        order = orderRepository.findOne(id);
+        Name name = nameRepository.findOne(3);
+        order.setId(id);
+        order.setEnd(end);
+        order.setEnded(new Date(System.currentTimeMillis()));
+        order.setName(name);
+        order.setMechanic(mechanicRepository.findByName("Janusz"));
+        orderRepository.save(order);
+        return "redirect:/showOrders";
     }
 
 

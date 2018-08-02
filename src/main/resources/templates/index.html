@@ -8,7 +8,7 @@
 </head>
 <body>
 <p th:text="#{app.name}">Nazwa aplikacji</p>
-<p th:text="'Witaj ' + ${name} + '!'" />
+<p th:text="'Witaj ' + ${name} + '!'" >User</p>
 
 
 <span sec:authorize="!isAuthenticated()">

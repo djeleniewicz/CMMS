@@ -12,4 +12,6 @@ public interface MechanicRepository extends JpaRepository<Mechanic, Integer> {
 
     Mechanic findByName(String username);
 
+
+
 }

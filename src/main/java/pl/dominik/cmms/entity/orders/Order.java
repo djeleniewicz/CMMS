@@ -18,9 +18,14 @@ public class Order {
     private int id;
     private Date created;
     private Date ended;
+    private String end;
+
+
+
     @NotBlank
     @Size(min = 10)
     private String note;
+
 
     @ManyToOne
     private Equipment equipment;
@@ -34,6 +39,14 @@ public class Order {
 
     @ManyToOne
     private Mechanic mechanic;
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
 
     public Equipment getEquipment() {
         return equipment;
