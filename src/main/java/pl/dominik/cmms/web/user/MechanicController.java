@@ -5,7 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.mechanics.Mechanic;
+import pl.dominik.cmms.entity.security.Role;
 import pl.dominik.cmms.repository.security.MechanicRepository;
+import pl.dominik.cmms.repository.security.RoleRepository;
 import pl.dominik.cmms.service.security.MechanicService;
 
 import javax.validation.Valid;
@@ -16,10 +18,12 @@ public class MechanicController {
 
     private final MechanicRepository mechanicRepository;
     private final MechanicService mechanicService;
+    private final RoleRepository roleRepository;
 
-    public MechanicController(MechanicRepository mechanicRepository, MechanicService mechanicService) {
+    public MechanicController(MechanicRepository mechanicRepository, MechanicService mechanicService, RoleRepository roleRepository) {
         this.mechanicRepository = mechanicRepository;
         this.mechanicService = mechanicService;
+        this.roleRepository = roleRepository;
     }
 
     @RequestMapping("/mechanic")
@@ -40,7 +44,7 @@ public class MechanicController {
     @RequestMapping(value = "/add-mech", method = RequestMethod.POST)
     public String saveMech(@Valid Mechanic mechanic, BindingResult result) {
         if (result.hasErrors()) {
-            return "mechanics/formup";
+            return "mechanics/form";
         }
         mechanicService.saveMechanic(mechanic);
         return "redirect:/mechanic";
@@ -51,7 +55,6 @@ public class MechanicController {
         Mechanic mechanic = mechanicRepository.findOne(id);
         model.addAttribute("mechanic", mechanic);
         model.addAttribute("id", id);
-        System.out.println("get " + id);
         return "/mechanics/formup";
     }
 
@@ -63,7 +66,6 @@ public class MechanicController {
         System.out.println(id);
         mechanic.setId(id);
         mechanic.setEnabled(1);
-        System.out.println("get " + id);
         mechanicRepository.save(mechanic);
         return "redirect:/mechanic";
     }
@@ -72,7 +74,15 @@ public class MechanicController {
     @RequestMapping("/delete-mech/{id}")
     public String delMech(@PathVariable int id) {
         Mechanic mechanic = mechanicRepository.findOne(id);
-        mechanicRepository.delete(mechanic);
+        mechanic.setEnabled(0);
+        mechanicRepository.save(mechanic);
+//        mechanicRepository.delete(mechanic);
         return "redirect:/mechanic";
+    }
+
+    @RequestMapping("/role")
+    @ResponseBody
+    public String role() {
+        return "acc";
     }
 }

@@ -7,13 +7,10 @@
 <body>
 <h3>Equipment menu</h3>
 
-<button><a th:href="'/add-equip/'">Add new equipment</a></button>
-
-
 <table border="5px">
 
     <tr>
-        <td>Id@RequestParam int id, </td>
+        <td>Id</td>
         <td>Name</td>
         <td>Year of production</td>
         <td>Status</td>
@@ -30,7 +27,7 @@
             <td th:text="${equip.location}"></td>
             <td th:text="${equip.inspection}"></td>
 
-            <td> <a th:href="'/update-equip?id=' + ${equip.id}">Update</a> / <a th:href="'/delete-equip/' + ${equip.id}">Delete</a></td>
+            <td> <a th:href="'/update-equip?id=' + ${equip.id}">Update</a></td>
     </tr>
 </table>
 <a href="/">Back to home</a>

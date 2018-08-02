@@ -68,7 +68,9 @@ public class UserController {
     @RequestMapping("/delete-user/{id}")
     public String delEquip(@PathVariable int id) {
         User user = userRepository.findOne(id);
-        userRepository.delete(user);
+        user.setEnabled(0);
+        userRepository.save(user);
+//        userRepository.delete(user);
         return "redirect:/user";
     }
 }

@@ -16,7 +16,6 @@ public class User {
     @Size(min=4,max=15)
     private String username;
     @NotBlank
-    @Size(min=6, max=30)
     private String password;
     private int enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

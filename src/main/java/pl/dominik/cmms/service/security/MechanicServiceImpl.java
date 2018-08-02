@@ -37,4 +37,5 @@ public class MechanicServiceImpl implements MechanicService {
         mechanic.setRoles(new HashSet<Role>(Arrays.asList(mechRole)));
         mechanicRepository.save(mechanic);
     }
+
 }

@@ -20,7 +20,7 @@
     <tr th:block th:each="u : ${mechanic}">
             <td th:text="${u.name}"></td>
             <td th:text="${u.enabled}"></td>
-            <td> <a th:href="'/update-mech/' + ${u.id}">Update</a> / <a th:href="'/delete-mech/' + ${u.id}">Delete</a></td>
+            <td> <a th:href="'/update-mech/' + ${u.id}">Update</a> / <a th:href="'/delete-mech/' + ${u.id}">Disable</a></td>
     </tr>
 </table>
 

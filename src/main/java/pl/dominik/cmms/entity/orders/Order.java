@@ -8,7 +8,6 @@ import pl.dominik.cmms.entity.security.User;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Date;
-import java.sql.Time;
 
 @Entity
 @Table(name = "orders")
@@ -20,7 +19,7 @@ public class Order {
     private Date created;
     private Date ended;
     @NotBlank
-    @Size(min=10)
+    @Size(min = 10)
     private String note;
 
     @ManyToOne
@@ -31,6 +30,7 @@ public class Order {
 
     @ManyToOne
     private User user;
+
 
     @ManyToOne
     private Mechanic mechanic;
@@ -90,4 +90,13 @@ public class Order {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Mechanic getMechanic() {
+        return mechanic;
+    }
+
+    public void setMechanic(Mechanic mechanic) {
+        this.mechanic = mechanic;
+    }
+
 }

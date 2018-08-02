@@ -17,7 +17,6 @@ public class Mechanic {
     @NotBlank
     private String name;
     @NotBlank
-    @Size(min=5, max=30)
     private String password;
     private int enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

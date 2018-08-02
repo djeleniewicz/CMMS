@@ -10,6 +10,7 @@
 <table border="5px">
 
     <tr>
+        <td>Id</td>
         <td>Name</td>
         <td>Year of production</td>
         <td>Status</td>
@@ -17,6 +18,7 @@
     </tr>
 
     <tr th:block th:each="equip : ${equipment}">
+            <td th:text="${equip.id}"></td>
             <td th:text="${equip.name}"></td>
             <td th:text="${equip.yearOfProduction}"></td>
             <td th:text="${equip.status}"></td>
