@@ -15,6 +15,11 @@
             <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
         </tr>
         <tr>
+            <td>Name:</td>
+            <td><input type="date" th:field="*{yearOfProduction}" placeholder="yearOfProduction"> </input></td>
+            <td th:if="${#fields.hasErrors('yearOfProduction')}" th:errors="*{yearOfProduction}">Name Error</td>
+        </tr>
+        <tr>
             <td> Status </td>
             <td> <input th:each="item : ${status}" type="radio" th:value="${item.id}" th:text="${item.status}" name="status"> </input></td>
         </tr>

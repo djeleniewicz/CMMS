@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body th:fragment="headerFragment">
+<h1><a href="/">HOME</a></h1>
+
 <div sec:authorize="hasRole('ROLE_ADMIN')"> Admin Menu
 <p > <a href="/equipment"> Menu Equipments</a>
  <a href="/user"> Menu User</a>
@@ -13,9 +15,10 @@
 </div>
 
 <div sec:authorize="hasRole('ROLE_MECH')"> Mechanic Menu
-<p><a href="/add-order">New order</a>
+<p><a href="/order-user">New order</a>
 <a href="/showOrders">Orders list</a>
     <a href="/ordersHistory">Orders history</a></p>
+    <a href="/equipment-user">List equipments</a>
 </div>
 <div sec:authorize="hasRole('ROLE_USER')">
 User menu
@@ -24,6 +27,5 @@ User menu
     <a href="/equipment-user">List equipments</a>
 </p>
 </div>
-<div><a href="/">HOME</a></div>
 </body>
 </html>

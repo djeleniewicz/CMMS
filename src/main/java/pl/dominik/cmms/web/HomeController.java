@@ -1,9 +1,11 @@
 package pl.dominik.cmms.web;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.security.User;
+import pl.dominik.cmms.service.security.CurrentUser;
 import pl.dominik.cmms.service.security.UserService;
 
 @Controller

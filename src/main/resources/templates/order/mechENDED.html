@@ -14,7 +14,9 @@
         <td>Created</td>
         <td>Note</td>
         <td>Created by</td>
-        <td>Action</td>
+        <td>End comment</td>
+        <td>Ended by</td>
+        <td>Ended date</td>
     </tr>
 
     <tr th:block th:each="u : ${order}">
@@ -22,7 +24,10 @@
             <td th:text="${u.created}"></td>
             <td th:text="${u.note}"></td>
             <td th:text="${u.user}"></td>
-            <td> <a th:href="'/end-order/' + ${u.id}">End it</a></td>
+            <td th:text="${u.end}"></td>
+            <td th:text="${u.mechanic}"></td>
+            <td th:text="${u.ended}"></td>
+
     </tr>
 </table>
 

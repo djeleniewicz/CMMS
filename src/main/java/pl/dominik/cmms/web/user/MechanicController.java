@@ -1,5 +1,6 @@
 package pl.dominik.cmms.web.user;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,7 @@ public class MechanicController {
         this.userService = userService;
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/mechanic")
     public String mechanics(Model model) {
         List<User> mechanic = userRepository.findAllByRolesId(2);
@@ -39,7 +41,7 @@ public class MechanicController {
         return "mechanics/mechanic";
     }
 
-
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/add-mech")
     public String addMech(Model model) {
         Mechanic mechanic = new Mechanic();
@@ -47,6 +49,7 @@ public class MechanicController {
         return "mechanics/form";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/add-mech", method = RequestMethod.POST)
     public String saveMech(@Valid Mechanic mechanic, BindingResult result) {
         if (result.hasErrors()) {
@@ -60,6 +63,7 @@ public class MechanicController {
         return "redirect:/mechanic";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/update-mech/{id}")
     public String editMech(@PathVariable int id, Model model) {
         Mechanic mechanic = mechanicRepository.findOne(id);
@@ -68,6 +72,7 @@ public class MechanicController {
         return "/mechanics/formup";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/update-mech", method = RequestMethod.POST)
     public String editMech(@RequestParam int id, @Valid Mechanic mechanic, BindingResult result) {
         if (result.hasErrors()) {
@@ -79,23 +84,24 @@ public class MechanicController {
         userService.saveMechanic(user,mechanic);
         mechanic.setId(id);
         mechanic.setEnabled(1);
+        mechanicService.saveMechanic(mechanic);
         mechanicRepository.save(mechanic);
         return "redirect:/mechanic";
     }
 
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/delete-mech/{id}")
     public String delMech(@PathVariable int id) {
         Mechanic mechanic = mechanicRepository.findOne(id);
         mechanic.setEnabled(0);
-        mechanicRepository.save(mechanic);
+        User user = userRepository.findOne(id);
+        user.setEnabled(0);
+        userService.saveUser(user);
+        mechanicService.saveMechanic(mechanic);
 //        mechanicRepository.delete(mechanic);
         return "redirect:/mechanic";
     }
 
-    @RequestMapping("/role")
-    @ResponseBody
-    public String role() {
-        return "acc";
-    }
+
 }

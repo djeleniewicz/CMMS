@@ -8,6 +8,7 @@ import pl.dominik.cmms.entity.security.User;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "orders")
@@ -16,8 +17,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private Date created;
-    private Date ended;
+    private Timestamp created;
+    private Timestamp ended;
     private String end;
 
 
@@ -64,19 +65,19 @@ public class Order {
         this.note = note;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getEnded() {
+    public Timestamp getEnded() {
         return ended;
     }
 
-    public void setEnded(Date ended) {
+    public void setEnded(Timestamp ended) {
         this.ended = ended;
     }
 
