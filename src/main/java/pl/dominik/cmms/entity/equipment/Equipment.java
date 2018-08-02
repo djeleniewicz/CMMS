@@ -1,7 +1,10 @@
 package pl.dominik.cmms.entity.equipment;
 
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
@@ -11,7 +14,9 @@ public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotBlank
     private String name;
+    @NotNull
     private Date yearOfProduction;
 
     @ManyToOne

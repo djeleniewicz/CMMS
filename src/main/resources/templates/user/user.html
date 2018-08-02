@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:include="fragments/header :: headerFragment">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
-<button><a th:href="'/add-mech/'">Add new user</a></button>
+<button><a th:href="'/add-user/'">Add new user</a></button>
 
 
 <table border="5px">
@@ -14,6 +14,7 @@
     <tr>
         <td>User</td>
         <td>enabled</td>
+        <td>Action</td>
     </tr>
 
     <tr th:block th:each="u : ${user}">

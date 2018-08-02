@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:include="fragments/header :: headerFragment">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1> formularz</h1>
 
-<form method="post" th:object="${order}" th:action="@{/add-order}">
-    <div>Type: <input th:each="item : ${name}" type="radio" th:value="${item.id}" th:text="${item.name}" name="name"/> </div>
-    <div>Equipment<br><input type="number" name="equipment"/> </div>
-    <div>Note <br><input type="text" name="note"/></div>
+<form action="#" method="post" th:object="${order}" th:action="@{/add-order}">
+    <table>
+    <tr>
+    <td>Type: <input th:each="item : ${name}" type="radio" th:value="${item.id}" th:text="${item.name}" name="name"/> </td>
+    <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+    </tr>
+    <tr>
+    Equipment<input type="number" name="equipment"/>
+    </tr>
+    <tr>
+    <td><div>Note <input type="text" th:type="*{note}" name="note"/></div></td>
+        <td th:if="${#fields.hasErrors('note')}" th:errors="*{note}">Name Error</td>
+    </tr>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    <div><input type="submit" value="submit"></div>
+    <tr>    <td><input type="submit" value="submit"></td>
+    </tr>
+
+    </table>
 </form>
 
 <div><a href="/equipment">Equipments list</a>

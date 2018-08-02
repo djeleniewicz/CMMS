@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:include="fragments/header :: headerFragment">
+<head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1> formularz</h1>
 
-<form method="post" th:object="${mechanic}" th:action="@{/add-mech}">
+<form method="post" th:object="${mechanic}" th:action="@{/update-mech/(id=${mechanic.id})}">
     <div>Name<br><input type="text" name="name" placeholder="name"></div>
     <div>password<br><input type="password" name="password" placeholder="password"></div>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />

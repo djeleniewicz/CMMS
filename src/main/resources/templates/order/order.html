@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:include="fragments/header :: headerFragment">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -17,6 +17,7 @@
         <td>Created</td>
         <td>Ended</td>
         <td>Created by</td>
+        <td>Note</td>
     </tr>
 
     <tr th:block th:each="u : ${order}">
@@ -24,7 +25,7 @@
             <td th:text="${u.created}"></td>
             <td th:text="${u.ended}"></td>
             <td th:text="${u.user}"></td>
-            <td> <a th:href="'/update-order/' + ${u.id}">Update</a> / <a th:href="'/delete-order/' + ${u.id}">Delete</a></td>
+            <td th:text="${u.note}"></td>
     </tr>
 </table>
 

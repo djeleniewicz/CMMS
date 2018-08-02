@@ -1,6 +1,9 @@
 package pl.dominik.cmms.entity.security;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 
@@ -10,7 +13,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false, unique = true)
+    @Size(min=4,max=15)
     private String username;
+    @NotBlank
+    @Size(min=6, max=30)
     private String password;
     private int enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

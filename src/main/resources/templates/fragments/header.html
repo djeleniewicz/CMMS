@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head >
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-    <p><button><a href="/showOrders">Orders list</a></button>
-    </p>
+<body th:fragment="headerFragment">
+<div> Admin Menu
+<p> <a href="/equipment"> Menu Equipments</a>
+ <a href="/user"> Menu User</a>
+ <a href="/mechanic"> Menu Mechanic</a>
+    <a href="/order"> Menu Orders</a> </p>
+</div>
 
+<div> Mechanic Menu
+<p><a href="/add-order">New order</a>
+<a href="/showOrders">Orders list</a>
+    <a href="/ordersHistory">Orders history</a></p>
+</div>
+<div>
+User menu
 <p>
-    <button><a href="/ordersHistory">Orders history</a></button>
-
+    <a href="/order-user">New order</a>
+    <a href="/equipment-user">List equipments</a>
 </p>
+</div>
 </body>
 </html>

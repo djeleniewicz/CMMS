@@ -2,14 +2,13 @@ package pl.dominik.cmms.web.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.repository.security.UserRepository;
 import pl.dominik.cmms.service.security.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -39,7 +38,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add-user", method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute User user) {
+    public String saveUser(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "user/form";
+        }
         userService.saveUser(user);
         return "redirect:/user";
     }
@@ -48,12 +50,16 @@ public class UserController {
     public String editEquip(@PathVariable int id, Model model) {
         User user = userRepository.findOne(id);
         model.addAttribute("user", user);
-        return "/user/form";
+        return "/user/formup";
     }
 
-    @RequestMapping(value = "/update-user/{id}", method = RequestMethod.POST)
-    public String editEquip(@PathVariable int id, @ModelAttribute User user) {
+    @RequestMapping(value = "/update-user", method = RequestMethod.POST)
+    public String editEquip(@RequestParam int id, @Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "user/formup";
+        }
         user.setId(id);
+        user.setEnabled(1);
         userRepository.save(user);
         return "redirect:/user";
     }

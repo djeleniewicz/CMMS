@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/header :: headerFragment">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 </head>
 <body>
-
 <p th:text="#{app.name}">Nazwa aplikacji</p>
 <p th:text="'Witaj ' + ${name} + '!'" />
 
@@ -25,10 +26,8 @@
 <p>Posiada role: <span sec:authentication="authorities"></span></p>
 </p>
 
-<p><a href="/panel-admin">Admin panel </a></p>
-<p><a href="/panel-user">User panel </a></p>
-<p><a href="/panel-mechanic">Mechanics panel </a></p>
 
 
+<footer	th:include="fragments/footer	::	pagefooter"></footer>
 </body>
 </html>

@@ -1,8 +1,10 @@
 package pl.dominik.cmms.entity.mechanics;
 
+import org.hibernate.validator.constraints.NotBlank;
 import pl.dominik.cmms.entity.security.Role;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -12,7 +14,10 @@ public class Mechanic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotBlank
     private String name;
+    @NotBlank
+    @Size(min=5, max=30)
     private String password;
     private int enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -2,15 +2,16 @@ package pl.dominik.cmms.web.orders;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import pl.dominik.cmms.entity.equipment.Equipment;
 import pl.dominik.cmms.entity.orders.Name;
 import pl.dominik.cmms.entity.orders.Order;
+import pl.dominik.cmms.repository.equipment.EquipmentRepository;
 import pl.dominik.cmms.repository.order.NameRepository;
 import pl.dominik.cmms.repository.order.OrderRepository;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.util.List;
 
@@ -19,15 +20,22 @@ public class OrderController {
 
     private final OrderRepository orderRepository;
     private final NameRepository nameRepository;
+    private final EquipmentRepository equipmentRepository;
 
-    public OrderController(OrderRepository orderRepository, NameRepository nameRepository) {
+    public OrderController(OrderRepository orderRepository, NameRepository nameRepository, EquipmentRepository equipmentRepository) {
         this.orderRepository = orderRepository;
         this.nameRepository = nameRepository;
+        this.equipmentRepository = equipmentRepository;
     }
 
     @ModelAttribute("name")
     public List<Name> getStatus() {
         return nameRepository.findAll();
+    }
+
+    @ModelAttribute("namesforuser")
+    public List<Name> userStatus() {
+        return nameRepository.findAllByNameOrName("DAMAGE","INSPECTION");
     }
 
     @RequestMapping("/order")
@@ -45,7 +53,10 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/add-order", method = RequestMethod.POST)
-    public String saveOrder(@ModelAttribute Order order) {
+    public String saveOrder(@Valid Order order, BindingResult result) {
+        if (result.hasErrors()) {
+            return "order/form";
+        }
         order.setCreated(new Date(System.currentTimeMillis()));
         orderRepository.save(order);
         return "redirect:/order";
@@ -55,11 +66,14 @@ public class OrderController {
     public String editOrder(@PathVariable int id, Model model) {
         Order order = orderRepository.findOne(id);
         model.addAttribute("order", order);
-        return "/order/form";
+        return "/order/formup";
     }
 
-    @RequestMapping(value = "/update-order/{id}", method = RequestMethod.POST)
-    public String editOrder(@PathVariable int id, @ModelAttribute Order order) {
+    @RequestMapping(value = "/update-order", method = RequestMethod.POST)
+    public String editOrder(@RequestParam int id, @Valid Order order, BindingResult result) {
+        if (result.hasErrors()) {
+            return "order/formup";
+        }
         order.setId(id);
         orderRepository.save(order);
         return "redirect:/order";
@@ -87,8 +101,31 @@ public class OrderController {
         return "order/mech";
     }
 
-    @RequestMapping("/panel-mechanic")
-    public String panelMechanic(Model model) {
-        return "menu/mechanic";
+
+
+    @RequestMapping("/order-user")
+    public String userAdd(Model model) {
+        Order order = new Order();
+        model.addAttribute("order", order);
+        return "order/formUser";
     }
+
+    @RequestMapping(value = "/order-user", method = RequestMethod.POST)
+    public String save(@Valid Order order, BindingResult result) {
+        if (result.hasErrors()) {
+            return "order/formUser";
+        }
+        order.setCreated(new Date(System.currentTimeMillis()));
+        orderRepository.save(order);
+        return "redirect:/order";
+    }
+
+    @RequestMapping("/equipment-user")
+    public String equipment(Model model) {
+        List<Equipment> list = equipmentRepository.findAll();
+        model.addAttribute("equipment", list);
+        return "order/equipment";
+    }
+
+
 }

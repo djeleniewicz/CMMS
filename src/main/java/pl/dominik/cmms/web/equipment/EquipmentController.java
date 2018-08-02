@@ -2,10 +2,8 @@ package pl.dominik.cmms.web.equipment;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.equipment.Equipment;
 import pl.dominik.cmms.entity.equipment.Inspection;
 import pl.dominik.cmms.entity.equipment.Location;
@@ -15,6 +13,7 @@ import pl.dominik.cmms.repository.equipment.InspectionRepository;
 import pl.dominik.cmms.repository.equipment.LocationRepository;
 import pl.dominik.cmms.repository.equipment.StatusRepository;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -63,20 +62,26 @@ public class EquipmentController {
     }
 
     @RequestMapping(value = "/add-equip", method = RequestMethod.POST)
-    public String saveEquip(@ModelAttribute Equipment equipment) {
+    public String saveEquip(@Valid Equipment equipment, BindingResult result) {
+        if (result.hasErrors()) {
+            return "equipment/form";
+        }
         equipmentRepository.save(equipment);
         return "redirect:/equipment";
     }
 
-    @RequestMapping("/update-equip/{id}")
-    public String editEquip(@PathVariable int id, Model model) {
+    @RequestMapping("/update-equip")
+    public String editEquip(@RequestParam int id, Model model) {
         Equipment equipment = equipmentRepository.findOne(id);
         model.addAttribute("equipment", equipment);
-        return "/equipment/form";
+        return "/equipment/formup";
     }
 
-    @RequestMapping(value = "/update-equip/{id}", method = RequestMethod.POST)
-    public String editEquip(@PathVariable int id, @ModelAttribute Equipment equipment) {
+    @RequestMapping(value = "/update-equip", method = RequestMethod.POST)
+    public String editEquip(@RequestParam int id, @Valid Equipment equipment, BindingResult result) {
+        if (result.hasErrors()) {
+            return "equipment/formup";
+        }
         equipment.setId(id);
         equipmentRepository.save(equipment);
         return "redirect:/equipment";

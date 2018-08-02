@@ -2,17 +2,13 @@ package pl.dominik.cmms.web.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.mechanics.Mechanic;
-import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.repository.security.MechanicRepository;
-import pl.dominik.cmms.repository.security.UserRepository;
 import pl.dominik.cmms.service.security.MechanicService;
-import pl.dominik.cmms.service.security.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -27,7 +23,7 @@ public class MechanicController {
     }
 
     @RequestMapping("/mechanic")
-    public String mechanics(Model model){
+    public String mechanics(Model model) {
         List<Mechanic> mechanics = mechanicRepository.findAll();
         model.addAttribute("mechanic", mechanics);
         return "mechanics/mechanic";
@@ -42,7 +38,10 @@ public class MechanicController {
     }
 
     @RequestMapping(value = "/add-mech", method = RequestMethod.POST)
-    public String saveMech(@ModelAttribute Mechanic mechanic) {
+    public String saveMech(@Valid Mechanic mechanic, BindingResult result) {
+        if (result.hasErrors()) {
+            return "mechanics/formup";
+        }
         mechanicService.saveMechanic(mechanic);
         return "redirect:/mechanic";
     }
@@ -51,14 +50,20 @@ public class MechanicController {
     public String editMech(@PathVariable int id, Model model) {
         Mechanic mechanic = mechanicRepository.findOne(id);
         model.addAttribute("mechanic", mechanic);
-        model.addAttribute("id",id);
-        return "/mechanics/form";
+        model.addAttribute("id", id);
+        System.out.println("get " + id);
+        return "/mechanics/formup";
     }
 
-    @RequestMapping(value = "/update-mech/{id}", method = RequestMethod.POST)
-    public String editMech(@PathVariable int id, @ModelAttribute Mechanic mechanic) {
+    @RequestMapping(value = "/update-mech", method = RequestMethod.POST)
+    public String editMech(@RequestParam int id, @Valid Mechanic mechanic, BindingResult result) {
+        if (result.hasErrors()) {
+            return "mechanics/formup";
+        }
         System.out.println(id);
         mechanic.setId(id);
+        mechanic.setEnabled(1);
+        System.out.println("get " + id);
         mechanicRepository.save(mechanic);
         return "redirect:/mechanic";
     }

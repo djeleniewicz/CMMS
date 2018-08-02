@@ -1,5 +1,7 @@
 package pl.dominik.cmms.entity.equipment;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +11,7 @@ public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotBlank
     private String status;
 
     public int getId() {

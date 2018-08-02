@@ -5,13 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<h1> formularz</h1>
 
-<form action="#" method="post" th:object="${equipment}" th:action="@{/add-equip}">
+
+<form action="#" th:object="${equipment}" th:action="@{/update-equip/(id=${equipment.id})}">
     <table>
         <tr>
             <td>Name:</td>
-            <td><input type="text" th:field="*{name}" placeholder="name"> </input></td>
+            <td><input type="text" th:field="*{name}" name="name" placeholder="name"> </input></td>
             <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
         </tr>
         <tr>
