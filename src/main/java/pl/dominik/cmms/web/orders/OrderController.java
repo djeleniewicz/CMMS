@@ -1,16 +1,21 @@
 package pl.dominik.cmms.web.orders;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.equipment.Equipment;
+import pl.dominik.cmms.entity.mechanics.Mechanic;
 import pl.dominik.cmms.entity.orders.Name;
 import pl.dominik.cmms.entity.orders.Order;
+import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.repository.equipment.EquipmentRepository;
 import pl.dominik.cmms.repository.order.NameRepository;
 import pl.dominik.cmms.repository.order.OrderRepository;
 import pl.dominik.cmms.repository.security.MechanicRepository;
+import pl.dominik.cmms.service.security.CurrentUser;
 
 import javax.validation.Valid;
 import java.sql.Date;
@@ -42,6 +47,7 @@ public class OrderController {
         return nameRepository.findAllByNameOrName("DAMAGE","INSPECTION");
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/order")
     public String homeOrder(Model model) {
         List<Order> order = orderRepository.findAll();
@@ -49,6 +55,7 @@ public class OrderController {
         return "order/order";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/add-order")
     public String addOrder(Model model) {
         Order order = new Order();
@@ -56,6 +63,7 @@ public class OrderController {
         return "order/form";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/add-order", method = RequestMethod.POST)
     public String saveOrder(@Valid Order order, BindingResult result) {
         if (result.hasErrors()) {
@@ -66,6 +74,7 @@ public class OrderController {
         return "redirect:/order";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/update-order/{id}")
     public String editOrder(@PathVariable int id, Model model) {
         Order order = orderRepository.findOne(id);
@@ -73,6 +82,7 @@ public class OrderController {
         return "/order/formup";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/update-order", method = RequestMethod.POST)
     public String editOrder(@RequestParam int id, @Valid Order order, BindingResult result) {
         if (result.hasErrors()) {
@@ -84,6 +94,7 @@ public class OrderController {
     }
 
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/delete-order/{id}")
     public String delEquip(@PathVariable int id) {
         Order order = orderRepository.findOne(id);
@@ -91,6 +102,7 @@ public class OrderController {
         return "redirect:/order";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/showOrders")
     public String orders(Model model) {
         List<Order> order = orderRepository.findAllByName_IdOrName_Id(1,2);
@@ -98,6 +110,7 @@ public class OrderController {
         return "order/mech";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/ordersHistory")
     public String history(Model model) {
         List<Order> order = orderRepository.findAllByName_Id(3);
@@ -105,8 +118,7 @@ public class OrderController {
         return "order/mech";
     }
 
-
-
+    @Secured({"ROLE_MECH", "ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping("/order-user")
     public String userAdd(Model model) {
         Order order = new Order();
@@ -114,16 +126,19 @@ public class OrderController {
         return "order/formUser";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping(value = "/order-user", method = RequestMethod.POST)
-    public String save(@Valid Order order, BindingResult result) {
+    public String save(@AuthenticationPrincipal CurrentUser customUser, @Valid Order order, BindingResult result ) {
         if (result.hasErrors()) {
             return "order/formUser";
         }
+        order.setUser(customUser.getUser());
         order.setCreated(new Date(System.currentTimeMillis()));
         orderRepository.save(order);
         return "redirect:/order";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping("/equipment-user")
     public String equipment(Model model) {
         List<Equipment> list = equipmentRepository.findAll();
@@ -132,7 +147,7 @@ public class OrderController {
     }
 
 
-
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/end-order/{id}")
     public String endOrder(@PathVariable int id, Model model) {
         Order order = orderRepository.findOne(id);
@@ -140,19 +155,21 @@ public class OrderController {
         return "/order/formEnd";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping(value = "/end-order", method = RequestMethod.POST)
-    public String endOrder(@RequestParam int id, @ModelAttribute Order order) {
+    public String endOrder(@AuthenticationPrincipal CurrentUser customUser, @RequestParam int id, @ModelAttribute Order order) {
         String end = order.getEnd();
         order = orderRepository.findOne(id);
         Name name = nameRepository.findOne(3);
+        Mechanic mechanic = mechanicRepository.findByName(customUser.getUser().getUsername());
+        System.out.println(mechanic);
         order.setId(id);
         order.setEnd(end);
         order.setEnded(new Date(System.currentTimeMillis()));
         order.setName(name);
-        order.setMechanic(mechanicRepository.findByName("Janusz"));
+        order.setMechanic(mechanic);
         orderRepository.save(order);
         return "redirect:/showOrders";
     }
-
 
 }

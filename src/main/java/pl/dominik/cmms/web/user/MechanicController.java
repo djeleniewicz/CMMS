@@ -8,6 +8,7 @@ import pl.dominik.cmms.entity.mechanics.Mechanic;
 import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.repository.security.MechanicRepository;
 import pl.dominik.cmms.repository.security.RoleRepository;
+import pl.dominik.cmms.repository.security.UserRepository;
 import pl.dominik.cmms.service.security.MechanicService;
 import pl.dominik.cmms.service.security.UserService;
 
@@ -20,19 +21,21 @@ public class MechanicController {
     private final MechanicRepository mechanicRepository;
     private final MechanicService mechanicService;
     private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
     private final UserService userService;
 
-    public MechanicController(MechanicRepository mechanicRepository, MechanicService mechanicService, RoleRepository roleRepository, UserService userService) {
+    public MechanicController(MechanicRepository mechanicRepository, MechanicService mechanicService, RoleRepository roleRepository, UserRepository userRepository, UserService userService) {
         this.mechanicRepository = mechanicRepository;
         this.mechanicService = mechanicService;
         this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
         this.userService = userService;
     }
 
     @RequestMapping("/mechanic")
     public String mechanics(Model model) {
-        List<Mechanic> mechanics = mechanicRepository.findAll();
-        model.addAttribute("mechanic", mechanics);
+        List<User> mechanic = userRepository.findAllByRolesId(2);
+        model.addAttribute("mechanic", mechanic);
         return "mechanics/mechanic";
     }
 
@@ -70,7 +73,10 @@ public class MechanicController {
         if (result.hasErrors()) {
             return "mechanics/formup";
         }
-        System.out.println(id);
+        User user = userRepository.findOne(id);
+        user.setUsername(mechanic.getName());
+        user.setPassword(mechanic.getPassword());
+        userService.saveMechanic(user,mechanic);
         mechanic.setId(id);
         mechanic.setEnabled(1);
         mechanicRepository.save(mechanic);

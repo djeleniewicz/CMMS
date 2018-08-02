@@ -24,7 +24,7 @@ public class UserController {
 
     @RequestMapping("/user")
     public String users(Model model){
-        List<User> user = userRepository.findAll();
+        List<User> user = userRepository.findAllByRolesId(1);
         model.addAttribute("user", user);
         return "user/user";
     }

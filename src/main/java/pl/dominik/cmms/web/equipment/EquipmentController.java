@@ -1,5 +1,6 @@
 package pl.dominik.cmms.web.equipment;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,6 +48,7 @@ public class EquipmentController {
         return inspectionRepository.findAll();
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/equipment")
     public String homeEquipment(Model model) {
         List<Equipment> equipment = equipmentRepository.findAll();
@@ -54,6 +56,7 @@ public class EquipmentController {
         return "equipment/equipment";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/add-equip")
     public String addEquip(Model model) {
         Equipment equipment = new Equipment();
@@ -61,6 +64,7 @@ public class EquipmentController {
         return "equipment/form";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping(value = "/add-equip", method = RequestMethod.POST)
     public String saveEquip(@Valid Equipment equipment, BindingResult result) {
         if (result.hasErrors()) {
@@ -70,6 +74,7 @@ public class EquipmentController {
         return "redirect:/equipment";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/update-equip")
     public String editEquip(@RequestParam int id, Model model) {
         Equipment equipment = equipmentRepository.findOne(id);
@@ -77,6 +82,7 @@ public class EquipmentController {
         return "/equipment/formup";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping(value = "/update-equip", method = RequestMethod.POST)
     public String editEquip(@RequestParam int id, @Valid Equipment equipment, BindingResult result) {
         if (result.hasErrors()) {
@@ -87,7 +93,7 @@ public class EquipmentController {
         return "redirect:/equipment";
     }
 
-
+    @Secured("ROLE_ADMIN")
     @RequestMapping("/delete-equip/{id}")
     public String delEquip(@PathVariable int id) {
         Equipment equipment = equipmentRepository.findOne(id);
