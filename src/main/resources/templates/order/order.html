@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:include="fragments/header :: headerFragment">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<nav th:include="fragments/header :: headerFragment"></nav>
 <h3>Equipment menu</h3>
 
 <button><a th:href="'/add-order/'">Add new order</a></button>
@@ -16,21 +18,26 @@
         <td>Equipment</td>
         <td>Type</td>
         <td>Created</td>
-        <td>Ended</td>
         <td>Created by</td>
         <td>Note</td>
+        <td>Ended</td>
+        <td>Ended by</td>
+
     </tr>
 
     <tr th:block th:each="u : ${order}">
             <td th:text="${u.equipment}"></td>
             <td th:text="${u.name}"></td>
             <td th:text="${u.created}"></td>
-            <td th:text="${u.ended}"></td>
             <td th:text="${u.user}"></td>
             <td th:text="${u.note}"></td>
+            <td th:text="${u.ended}"></td>
+            <td th:text="${u.user}"></td>
+
+
     </tr>
 </table>
 
-<a href="/">Back to home</a>
+<footer	th:include="fragments/footer   ::	pagefooter"></footer>
 </body>
 </html>

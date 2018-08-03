@@ -23,5 +23,9 @@ public class HomeController {
         return "index";
     }
 
+    @RequestMapping("/contact")
+    public String contact(Model model) {
+        return "contact";
+    }
 
 }

@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head >
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body th:fragment="headerFragment">
 <h1><a href="/">HOME</a></h1>
 
-<div sec:authorize="hasRole('ROLE_ADMIN')"> Admin Menu
-<p > <a href="/equipment"> Menu Equipments</a>
- <a href="/user"> Menu User</a>
- <a href="/mechanic"> Menu Mechanic</a>
-    <a href="/order"> Menu Orders</a> </p>
-</div>
+<h3 sec:authorize="hasRole('ROLE_ADMIN')"> Admin Menu
+<p > <a class="btn btn-primary" href="/equipment" role="button"> Menu Equipments</a>
+<a class="btn btn-primary" href="/user" role="button"> Menu User</a>
+ <a class="btn btn-primary" href="/mechanic" role="button"> Menu Mechanic </a>
+    <a class="btn btn-primary" href="/order" role="button"> Menu Orders </a> </p>
+    <p>User menu</p>
+    <a class="btn btn-primary" href="/order-user" role="button">New order</a>
+    <a class="btn btn-primary" href="/equipment-user" role="button">List equipments</a>
+    <p>Mechanic menu</p>
+    <p><a class="btn btn-primary" href="/order-user" role="button">New order </a>
+    <a class="btn btn-primary" href="/showOrders" role="button">Orders list</a>
+    <a class="btn btn-primary" href="/ordersHistory" role="button">Orders history</a>
+    <a class="btn btn-primary"   href="/equipment-user" role="button">List equipments</a>
+    </p>
+</h3>
 
-<div sec:authorize="hasRole('ROLE_MECH')"> Mechanic Menu
-<p><a href="/order-user">New order</a>
-<a href="/showOrders">Orders list</a>
-    <a href="/ordersHistory">Orders history</a></p>
-    <a href="/equipment-user">List equipments</a>
-</div>
-<div sec:authorize="hasRole('ROLE_USER')">
+<h3 sec:authorize="hasRole('ROLE_MECH')"> Mechanic Menu
+<p><a class="btn btn-primary" href="/order-user" role="button">New order</a>
+<a class="btn btn-primary" href="/showOrders" role="button">Orders list</a>
+    <a class="btn btn-primary" href="/ordersHistory" role="button">Orders history</a>
+    <a class="btn btn-primary" href="/equipment-user" role="button">List equipments</a>
+</p>
+</h3>
+<h3 sec:authorize="hasRole('ROLE_USER')">
 User menu
 <p>
-    <a href="/order-user">New order</a>
-    <a href="/equipment-user">List equipments</a>
+    <a class="btn btn-primary" href="/order-user" role="button">New order</a>
+    <a class="btn btn-primary" href="/equipment-user" role="button">List equipments</a>
 </p>
-</div>
+</h3>
 </body>
 </html>

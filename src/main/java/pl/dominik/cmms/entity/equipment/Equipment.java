@@ -80,6 +80,6 @@ public class Equipment {
 
     @Override
     public String toString() {
-        return   id + " " + name;
+        return  "Id=" + id + " | name=" + name + " | location=" + location;
     }
 }

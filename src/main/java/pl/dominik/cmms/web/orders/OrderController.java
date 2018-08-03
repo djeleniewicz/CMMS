@@ -140,6 +140,7 @@ public class OrderController {
         if (result.hasErrors()) {
             return "order/formUser";
         }
+        System.out.println(order.getEquipment().getId());
         Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
         if(order.getName().getId() == 3) {
             Status status = statusRepository.findOne(1);
@@ -148,9 +149,9 @@ public class OrderController {
             Status status = statusRepository.findOne(2);
             equipment.setStatus(status);
         }
-        equipmentRepository.save(equipment);
         order.setUser(customUser.getUser());
         order.setCreated(new Timestamp(System.currentTimeMillis()));
+        equipmentRepository.save(equipment);
         orderRepository.save(order);
         return "redirect:/";
     }
