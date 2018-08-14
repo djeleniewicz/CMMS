@@ -8,14 +8,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.equipment.Equipment;
 import pl.dominik.cmms.entity.equipment.Status;
-import pl.dominik.cmms.entity.mechanics.Mechanic;
 import pl.dominik.cmms.entity.orders.Name;
 import pl.dominik.cmms.entity.orders.Order;
 import pl.dominik.cmms.repository.equipment.EquipmentRepository;
 import pl.dominik.cmms.repository.equipment.StatusRepository;
 import pl.dominik.cmms.repository.order.NameRepository;
 import pl.dominik.cmms.repository.order.OrderRepository;
-import pl.dominik.cmms.repository.security.MechanicRepository;
 import pl.dominik.cmms.service.security.CurrentUser;
 
 import javax.validation.Valid;
@@ -28,15 +26,13 @@ public class OrderController {
     private final OrderRepository orderRepository;
     private final NameRepository nameRepository;
     private final EquipmentRepository equipmentRepository;
-    private final MechanicRepository mechanicRepository;
     private final StatusRepository statusRepository;
 
 
-    public OrderController(OrderRepository orderRepository, NameRepository nameRepository, EquipmentRepository equipmentRepository, MechanicRepository mechanicRepository, StatusRepository statusRepository) {
+    public OrderController(OrderRepository orderRepository, NameRepository nameRepository, EquipmentRepository equipmentRepository, StatusRepository statusRepository) {
         this.orderRepository = orderRepository;
         this.nameRepository = nameRepository;
         this.equipmentRepository = equipmentRepository;
-        this.mechanicRepository = mechanicRepository;
         this.statusRepository = statusRepository;
     }
 
@@ -142,10 +138,10 @@ public class OrderController {
         }
         System.out.println(order.getEquipment().getId());
         Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
-        if(order.getName().getId() == 3) {
+        if (order.getName().getId() == 3) {
             Status status = statusRepository.findOne(1);
             equipment.setStatus(status);
-        } else if (order.getName().getId() == 1 ) {
+        } else if (order.getName().getId() == 1) {
             Status status = statusRepository.findOne(2);
             equipment.setStatus(status);
         }
@@ -179,10 +175,9 @@ public class OrderController {
         String end = order.getEnd();
         order = orderRepository.findOne(id);
         Name name = nameRepository.findOne(3);
-        Mechanic mechanic = mechanicRepository.findByName(customUser.getUser().getUsername());
         Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
         System.out.println(equipment);
-        if(order.getName().getId() == 1) {
+        if (order.getName().getId() == 1) {
             Status status = statusRepository.findOne(1);
             equipment.setStatus(status);
         } else if (order.getName().getId() == 3) {
@@ -195,7 +190,6 @@ public class OrderController {
         order.setEnd(end);
         order.setEnded(new Timestamp(System.currentTimeMillis()));
         order.setName(name);
-        order.setMechanic(mechanic);
         orderRepository.save(order);
         return "redirect:/";
     }

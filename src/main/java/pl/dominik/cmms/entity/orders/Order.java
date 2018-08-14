@@ -2,12 +2,10 @@ package pl.dominik.cmms.entity.orders;
 
 import org.hibernate.validator.constraints.NotBlank;
 import pl.dominik.cmms.entity.equipment.Equipment;
-import pl.dominik.cmms.entity.mechanics.Mechanic;
 import pl.dominik.cmms.entity.security.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -20,7 +18,6 @@ public class Order {
     private Timestamp created;
     private Timestamp ended;
     private String end;
-
 
 
     @NotBlank
@@ -37,9 +34,6 @@ public class Order {
     @ManyToOne
     private User user;
 
-
-    @ManyToOne
-    private Mechanic mechanic;
 
     public String getEnd() {
         return end;
@@ -105,12 +99,5 @@ public class Order {
         this.user = user;
     }
 
-    public Mechanic getMechanic() {
-        return mechanic;
-    }
-
-    public void setMechanic(Mechanic mechanic) {
-        this.mechanic = mechanic;
-    }
 
 }
