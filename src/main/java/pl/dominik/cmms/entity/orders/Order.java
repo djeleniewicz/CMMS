@@ -24,9 +24,9 @@ public class Order {
     @Size(min = 10)
     private String note;
 
-
     @ManyToOne
     private Equipment equipment;
+
 
     @ManyToOne
     private Name name;

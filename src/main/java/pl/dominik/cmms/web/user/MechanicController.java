@@ -70,6 +70,7 @@ public class MechanicController {
         if (result.hasErrors()) {
             return "mechanics/formup";
         }
+        mechanic.setId(id);
         userService.saveMechanic(mechanic);
         return "redirect:/mechanic";
     }
@@ -78,9 +79,9 @@ public class MechanicController {
     @Secured("ROLE_ADMIN")
     @RequestMapping("/delete-mech/{id}")
     public String delMech(@PathVariable int id) {
-        User mechanic = userRepository.findOne(id);
-        mechanic.setEnabled(0);
-        userService.saveMechanic(mechanic);
+        User user = userRepository.findOne(id);
+        user.setEnabled(0);
+        userService.saveMechanic(user);
         return "redirect:/mechanic";
     }
 
