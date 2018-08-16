@@ -51,8 +51,7 @@ public class MechanicController {
         if (result.hasErrors()) {
             return "mechanics/form";
         }
-        roleRepository.findOne(2);
-        userService.saveUser(user);
+        userService.saveMechanic(user);
         return "redirect:/mechanic";
     }
 
@@ -71,7 +70,7 @@ public class MechanicController {
         if (result.hasErrors()) {
             return "mechanics/formup";
         }
-        userService.saveUser(mechanic);
+        userService.saveMechanic(mechanic);
         return "redirect:/mechanic";
     }
 
@@ -81,7 +80,7 @@ public class MechanicController {
     public String delMech(@PathVariable int id) {
         User mechanic = userRepository.findOne(id);
         mechanic.setEnabled(0);
-        userService.saveUser(mechanic);
+        userService.saveMechanic(mechanic);
         return "redirect:/mechanic";
     }
 

@@ -7,5 +7,5 @@ public interface UserService {
 
     void saveUser(User user);
 
-
+    void saveMechanic(User user);
 }
