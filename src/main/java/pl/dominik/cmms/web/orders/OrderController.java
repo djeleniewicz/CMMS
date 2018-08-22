@@ -10,10 +10,12 @@ import pl.dominik.cmms.entity.equipment.Equipment;
 import pl.dominik.cmms.entity.equipment.Status;
 import pl.dominik.cmms.entity.orders.Name;
 import pl.dominik.cmms.entity.orders.Order;
+import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.repository.equipment.EquipmentRepository;
 import pl.dominik.cmms.repository.equipment.StatusRepository;
 import pl.dominik.cmms.repository.order.NameRepository;
 import pl.dominik.cmms.repository.order.OrderRepository;
+import pl.dominik.cmms.repository.security.UserRepository;
 import pl.dominik.cmms.service.security.CurrentUser;
 
 import javax.validation.Valid;
@@ -27,13 +29,15 @@ public class OrderController {
     private final NameRepository nameRepository;
     private final EquipmentRepository equipmentRepository;
     private final StatusRepository statusRepository;
+    private final UserRepository userRepository;
 
 
-    public OrderController(OrderRepository orderRepository, NameRepository nameRepository, EquipmentRepository equipmentRepository, StatusRepository statusRepository) {
+    public OrderController(OrderRepository orderRepository, NameRepository nameRepository, EquipmentRepository equipmentRepository, StatusRepository statusRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.nameRepository = nameRepository;
         this.equipmentRepository = equipmentRepository;
         this.statusRepository = statusRepository;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute("name")
@@ -109,7 +113,7 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/showOrders")
     public String orders(Model model) {
-        List<Order> order = orderRepository.findAllByName_IdOrName_Id(1, 2);
+        List<Order> order = orderRepository.findAllByName_IdOrName_IdOrderByCreatedDesc(1, 2);
         model.addAttribute("order", order);
         return "order/mech";
     }
@@ -117,10 +121,19 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/ordersHistory")
     public String history(Model model) {
-        List<Order> order = orderRepository.findAllByName_Id(3);
+        List<Order> order = orderRepository.findAllByName_IdOrderByEndedDesc(3);
         model.addAttribute("order", order);
         return "order/mechENDED";
     }
+
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
+    @RequestMapping("/orders-by-mechanic")
+    public String orderByMech(Model model) {
+        List<User> user = userRepository.findAllByRolesId(2);
+        model.addAttribute("user", user);
+        return "order/orderByMech";
+    }
+
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping("/order-user")

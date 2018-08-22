@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:include="fragments/header :: headerFragment"></nav>
+<form action="#" method="post" th:object="${user}" th:action="@{/order-by-mechanic}">
+    <table>
+        <th>Type:</th>
+        <tr>
+            <td> <input th:each="item : ${username}" type="radio" th:value="${item.id}"
+                        th:text="${item.name}" name="name"/> </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
