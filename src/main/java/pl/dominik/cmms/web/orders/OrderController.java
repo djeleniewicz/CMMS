@@ -129,11 +129,20 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/orders-by-mechanic")
     public String orderByMech(Model model) {
-        List<User> user = userRepository.findAllByRolesId(2);
+        List<User> user = userRepository.findAllByRolesIdAndEnabled(2, 1);
         model.addAttribute("user", user);
         return "order/orderByMech";
     }
 
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
+    @RequestMapping(value = "/orders-by-mechanic", method = RequestMethod.POST)
+    public String orderByMechsPost(User user, Model model) {
+//        User user = userRepository.findOne(id);
+        System.out.println(user.toString());
+        List<Order> orders = orderRepository.findAllByUser(user.getId());
+        model.addAttribute("order", orders);
+        return "order/mechENDED";
+    }
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping("/order-user")
@@ -149,7 +158,6 @@ public class OrderController {
         if (result.hasErrors()) {
             return "order/formUser";
         }
-        System.out.println(order.getEquipment().getId());
         Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
         if (order.getName().getId() == 3) {
             Status status = statusRepository.findOne(1);

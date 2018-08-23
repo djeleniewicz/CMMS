@@ -14,6 +14,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findAllByName_IdOrName_IdOrderByCreatedDesc(int id, int id2);
     List<Order> findAllByName_IdOrderByEndedDesc(int id);
 
+    List<Order> findAllByUser(int id);
+
 
 
 }
