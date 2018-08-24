@@ -121,28 +121,48 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/ordersHistory")
     public String history(Model model) {
-        List<Order> order = orderRepository.findAllByName_IdOrderByEndedDesc(3);
+        List<Order> order = orderRepository.findAllByName_IdOrderByEndedDescCreatedDesc(3);
         model.addAttribute("order", order);
         return "order/mechENDED";
     }
 
-//    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
-//    @RequestMapping("/orders-by-mechanic")
-//    public String orderByMech(Model model) {
-//        List<User> user = userRepository.findAllByRolesIdAndEnabled(2, 1);
-//        model.addAttribute("user", user);
-//        return "order/orderByMech";
-//    }
+
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/orders-by-mechanic/{id}")
     public String orderByMech(@PathVariable int id, Model model) {
         User user = userRepository.findOne(id);
-        System.out.println(user.toString());
         List<Order> orders = orderRepository.findAllByUserOrderByEndedDesc(user);
         model.addAttribute("order", orders);
         return "order/mechENDED";
     }
+
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
+    @RequestMapping("/orders-by-equip/{id}")
+    public String orderByEquip(@PathVariable int id, Model model) {
+        Equipment equipment = equipmentRepository.findOne(id);
+        List<Order> orders = orderRepository.findAllByEquipmentOrderByEndedDesc(equipment);
+        model.addAttribute("order", orders);
+        return "order/mechENDED";
+    }
+
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
+    @RequestMapping("/orders-by-user/{id}")
+    public String orderByUser(@PathVariable int id, Model model) {
+        User user = userRepository.findOne(id);
+        List<Order> orders = orderRepository.findAllByUserOrderByEndedDesc(user);
+        model.addAttribute("order", orders);
+        return "order/mechENDED";
+    }
+
+    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
+    @RequestMapping("/orders-detail/{id}")
+    public String orderDetails(@PathVariable int id, Model model) {
+        Order order = orderRepository.findOne(id);
+        model.addAttribute("order", order);
+        return "order/mechENDED";
+    }
+
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping("/order-user")

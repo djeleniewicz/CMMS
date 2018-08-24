@@ -25,19 +25,18 @@
     </p>
 </h3>
 
-<h3 sec:authorize="hasRole('ROLE_MECH')"> Mechanic Menu
-<p><a class="btn btn-primary" href="/order-user" role="button">New order</a>
-<a class="btn btn-primary" href="/showOrders" role="button">Orders list</a>
-    <a class="btn btn-primary" href="/ordersHistory" role="button">Orders history</a>
-    <a class="btn btn-primary" href="/equipment-user" role="button">List equipments</a>
-</p>
+
+<h3 sec:authorize="hasRole('ROLE_MECH')"> Menu
+    <p><a class="btn btn-primary" href="/order-user" role="button">New order</a> </p>
+    <p><a class="btn btn-primary" href="/showOrders" role="button">Orders list</a></p>
+    <p><a class="btn btn-primary" href="/ordersHistory" role="button">Orders history</a></p>
+    <p><a class="btn btn-primary" href="/equipment-user" role="button">List equipments</a></p>
 </h3>
+
 <h3 sec:authorize="hasRole('ROLE_USER')">
 User menu
-<p>
-    <a class="btn btn-primary" href="/order-user" role="button">New order</a>
-    <a class="btn btn-primary" href="/equipment-user" role="button">List equipments</a>
-</p>
+    <p> <a class="btn btn-primary" href="/order-user" role="button">New order</a> </p>
+   <p> <a class="btn btn-primary" href="/equipment-user" role="button">List equipments</a> </p>
 </h3>
 </body>
 </html>

@@ -17,6 +17,7 @@
         <td>Year of production</td>
         <td>Status</td>
         <td>Location</td>
+        <td>Action</td>
     </tr>
 
     <tr th:block th:each="equip : ${equipment}">
@@ -25,6 +26,7 @@
             <td th:text="${equip.yearOfProduction}"></td>
             <td th:text="${equip.status}"></td>
             <td th:text="${equip.location}"></td>
+        <td> <a th:href="'/orders-by-equip/' + ${equip.id}">Show orders</a></td>
     </tr>
 </table>
 <footer	th:include="fragments/footer   ::	pagefooter"></footer>

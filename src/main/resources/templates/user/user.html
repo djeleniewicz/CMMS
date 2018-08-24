@@ -15,12 +15,14 @@
     <tr>
         <td>User</td>
         <td>enabled</td>
+        <td>Show added orders</td>
         <td>Action</td>
     </tr>
 
     <tr th:block th:each="u : ${user}">
             <td th:text="${u.username}"></td>
             <td th:text="${u.enabled}"></td>
+        <td> <a th:href="'/orders-by-user/' + ${u.id}">Show orders</a></td>
             <td> <a th:href="'/update-user/' + ${u.id}">Update</a> / <a th:href="'/delete-user/' + ${u.id}">Disable</a></td>
     </tr>
 </table>
