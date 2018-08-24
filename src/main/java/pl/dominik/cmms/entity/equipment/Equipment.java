@@ -18,6 +18,7 @@ public class Equipment {
     private String name;
     @NotNull
     private Date yearOfProduction;
+    private int enable;
 
     @ManyToOne
     private Inspection inspection;
@@ -28,6 +29,14 @@ public class Equipment {
     @ManyToOne
     private Status status;
 
+
+    public int getEnable() {
+        return enable;
+    }
+
+    public void setEnable(int enable) {
+        this.enable = enable;
+    }
 
     public int getId() {
         return id;

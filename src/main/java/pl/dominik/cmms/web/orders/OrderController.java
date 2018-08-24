@@ -196,7 +196,7 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping("/equipment-user")
     public String equipment(Model model) {
-        List<Equipment> list = equipmentRepository.findAll();
+        List<Equipment> list = equipmentRepository.findAllByEnable(1);
         model.addAttribute("equipment", list);
         return "order/equipment";
     }

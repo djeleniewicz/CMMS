@@ -51,9 +51,17 @@ public class EquipmentController {
     @Secured("ROLE_ADMIN")
     @RequestMapping("/equipment")
     public String homeEquipment(Model model) {
-        List<Equipment> equipment = equipmentRepository.findAll();
+        List<Equipment> equipment = equipmentRepository.findAllByEnable(1);
         model.addAttribute("equipment", equipment);
         return "equipment/equipment";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping("/equipment-off")
+    public String equipmentOff(Model model) {
+        List<Equipment> list = equipmentRepository.findAllByEnable(0);
+        model.addAttribute("equipment", list);
+        return "order/equipment";
     }
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
@@ -70,6 +78,7 @@ public class EquipmentController {
         if (result.hasErrors()) {
             return "equipment/form";
         }
+        equipment.setEnable(1);
         equipmentRepository.save(equipment);
         return "redirect:/equipment";
     }
@@ -97,7 +106,8 @@ public class EquipmentController {
     @RequestMapping("/delete-equip/{id}")
     public String delEquip(@PathVariable int id) {
         Equipment equipment = equipmentRepository.findOne(id);
-        equipmentRepository.delete(equipment);
+        equipment.setEnable(0);
+        equipmentRepository.save(equipment);
         return "redirect:/equipment";
     }
 
