@@ -179,11 +179,11 @@ public class OrderController {
             return "order/formUser";
         }
         Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
-        if (order.getName().getId() == 3) {
-            Status status = statusRepository.findOne(1);
-            equipment.setStatus(status);
-        } else if (order.getName().getId() == 1) {
+        if (order.getName().getName().equals("WORKING")) {
             Status status = statusRepository.findOne(2);
+            equipment.setStatus(status);
+        } else if (order.getName().getName().equals("DAMAGE")) {
+            Status status = statusRepository.findOne(1);
             equipment.setStatus(status);
         }
         order.setUser(customUser.getUser());
