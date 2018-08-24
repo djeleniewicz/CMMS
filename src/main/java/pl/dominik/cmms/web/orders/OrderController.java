@@ -126,20 +126,20 @@ public class OrderController {
         return "order/mechENDED";
     }
 
-    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
-    @RequestMapping("/orders-by-mechanic")
-    public String orderByMech(Model model) {
-        List<User> user = userRepository.findAllByRolesIdAndEnabled(2, 1);
-        model.addAttribute("user", user);
-        return "order/orderByMech";
-    }
+//    @Secured({"ROLE_MECH", "ROLE_ADMIN"})
+//    @RequestMapping("/orders-by-mechanic")
+//    public String orderByMech(Model model) {
+//        List<User> user = userRepository.findAllByRolesIdAndEnabled(2, 1);
+//        model.addAttribute("user", user);
+//        return "order/orderByMech";
+//    }
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
-    @RequestMapping(value = "/orders-by-mechanic", method = RequestMethod.POST)
-    public String orderByMechsPost(User user, Model model) {
-//        User user = userRepository.findOne(id);
+    @RequestMapping("/orders-by-mechanic/{id}")
+    public String orderByMech(@PathVariable int id, Model model) {
+        User user = userRepository.findOne(id);
         System.out.println(user.toString());
-        List<Order> orders = orderRepository.findAllByUser(user.getId());
+        List<Order> orders = orderRepository.findAllByUserOrderByEndedDesc(user);
         model.addAttribute("order", orders);
         return "order/mechENDED";
     }

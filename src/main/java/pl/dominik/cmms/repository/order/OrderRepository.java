@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.dominik.cmms.entity.orders.Order;
+import pl.dominik.cmms.entity.security.User;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findAllByName_IdOrName_IdOrderByCreatedDesc(int id, int id2);
     List<Order> findAllByName_IdOrderByEndedDesc(int id);
 
-    List<Order> findAllByUser(int id);
+    List<Order> findAllByUserOrderByEndedDesc(User user);
 
 
 
