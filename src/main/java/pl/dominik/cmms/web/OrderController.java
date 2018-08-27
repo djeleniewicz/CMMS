@@ -1,4 +1,4 @@
-package pl.dominik.cmms.web.orders;
+package pl.dominik.cmms.web;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -121,7 +121,7 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/ordersHistory")
     public String history(Model model) {
-        List<Order> order = orderRepository.findAllByName_IdOrderByEndedDescCreatedDesc(3);
+        List<Order> order = orderRepository.findAllByName_IdOrderByEndedDesc(3);
         model.addAttribute("order", order);
         return "order/mechENDED";
     }

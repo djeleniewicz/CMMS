@@ -19,6 +19,15 @@
         <td> <input type="password" th:field="*{password}" name="password" placeholder="password"> </input></td>
         <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
         </tr>
+        <td> First name: </td>
+        <td> <input type="text" th:field="*{firstName}" name="firstName" placeholder="firstName"> </input></td>
+        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</td>
+        </tr>
+
+        <td> Last name: </td>
+        <td> <input type="text" th:field="*{lastName}" name="lastName" placeholder="lastName"> </input></td>
+        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</td>
+        </tr>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <tr>
             <td>

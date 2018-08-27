@@ -13,7 +13,6 @@
 
 <p sec:authorize="isAuthenticated()">
 <p>Zalogowany jako: <span sec:authentication="name"></span></p>
-<p>Posiadane role: <span sec:authentication="authorities"></span></p>
 </p>
 <span sec:authorize="isAuthenticated()">
     <form th:action="@{/logout}" method="post">

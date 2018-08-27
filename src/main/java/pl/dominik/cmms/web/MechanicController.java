@@ -1,4 +1,4 @@
-package pl.dominik.cmms.web.user;
+package pl.dominik.cmms.web;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;

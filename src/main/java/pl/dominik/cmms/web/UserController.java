@@ -1,9 +1,12 @@
-package pl.dominik.cmms.web.user;
+package pl.dominik.cmms.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.repository.security.UserRepository;
 import pl.dominik.cmms.service.security.UserService;
@@ -23,7 +26,7 @@ public class UserController {
     }
 
     @RequestMapping("/user")
-    public String users(Model model){
+    public String users(Model model) {
         List<User> user = userRepository.findAllByRolesId(1);
         model.addAttribute("user", user);
         return "user/user";
@@ -34,6 +37,7 @@ public class UserController {
     public String addUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
+        System.out.println("getem");
         return "user/form";
     }
 
@@ -70,7 +74,6 @@ public class UserController {
         User user = userRepository.findOne(id);
         user.setEnabled(0);
         userRepository.save(user);
-//        userRepository.delete(user);
         return "redirect:/user";
     }
 }

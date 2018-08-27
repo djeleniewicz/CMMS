@@ -1,11 +1,9 @@
 package pl.dominik.cmms.entity.security;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Collection;
 import java.util.Set;
 
 
@@ -17,7 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false, unique = true)
-    @Size(min=4,max=15)
+    @Size(min = 4, max = 15)
     private String username;
     @NotBlank
     private String password;
