@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head >
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -22,16 +23,16 @@
     </tr>
 
     <tr th:block th:each="equip : ${equipment}">
-            <td th:text="${equip.id}"></td>
-            <td th:text="${equip.name}"></td>
-            <td th:text="${equip.yearOfProduction}"></td>
-            <td th:text="${equip.status}"></td>
-            <td th:text="${equip.location}"></td>
-            <td th:text="${equip.inspection}"></td>
+        <td th:text="${equip.id}"></td>
+        <td th:text="${equip.name}"></td>
+        <td th:text="${equip.yearOfProduction}"></td>
+        <td th:text="${equip.status}"></td>
+        <td th:text="${equip.location}"></td>
+        <td th:text="${equip.inspection}"></td>
 
-            <td> <a th:href="'/update-equip?id=' + ${equip.id}">Update</a></td>
+        <td><a th:href="'/update-equip?id=' + ${equip.id}">Update</a></td>
     </tr>
 </table>
-<footer	th:include="fragments/footer   ::	pagefooter"></footer>
+<footer th:include="fragments/footer   ::	pagefooter"></footer>
 </body>
 </html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -10,10 +11,9 @@
 <h3>Equipment menu</h3>
 
 
-
-<a class="btn btn-primary"   href="/equipment-user" role="button">List equipments</a>
-<a class="btn btn-primary"   href="/add-equip" role="button">Add equipment</a>
-<a class="btn btn-primary"   href="/equipment-off" role="button">Disabled equipment</a>
+<a class="btn btn-primary" href="/equipment-user" role="button">List equipments</a>
+<a class="btn btn-primary" href="/add-equip" role="button">Add equipment</a>
+<a class="btn btn-primary" href="/equipment-off" role="button">Disabled equipment</a>
 
 
 <table class="table-dark">
@@ -31,19 +31,20 @@
     <tbody>
     <tr th:block th:each="equip : ${equipment}">
 
-            <th scope="row" th:text="${equip.id}"></th>
-            <td th:text="${equip.name}"></td>
-            <td th:text="${equip.yearOfProduction}"></td>
-            <td th:text="${equip.status}"></td>
-            <td th:text="${equip.location}"></td>
-            <td th:text="${equip.inspection}"></td>
+        <th scope="row" th:text="${equip.id}"></th>
+        <td th:text="${equip.name}"></td>
+        <td th:text="${equip.yearOfProduction}"></td>
+        <td th:text="${equip.status}"></td>
+        <td th:text="${equip.location}"></td>
+        <td th:text="${equip.inspection}"></td>
 
-            <td> <a th:href="'/update-equip?id=' + ${equip.id}">Update</a> / <a th:href="'/delete-equip/' + ${equip.id}">Delete</a></td>
+        <td><a th:href="'/update-equip?id=' + ${equip.id}">Update</a> / <a th:href="'/delete-equip/' + ${equip.id}">Delete</a>
+        </td>
     </tr>
     </tbody>
-    
+
 </table>
 
-<footer	th:include="fragments/footer   ::	pagefooter"></footer>
+<footer th:include="fragments/footer   ::	pagefooter"></footer>
 </body>
 </html>
