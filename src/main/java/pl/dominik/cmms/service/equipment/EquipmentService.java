@@ -9,6 +9,4 @@ public interface EquipmentService {
     Equipment findByName(String name);
 
     List<Equipment> findAll();
-//
-//    void saveEquipment(Equipment equipment);
 }

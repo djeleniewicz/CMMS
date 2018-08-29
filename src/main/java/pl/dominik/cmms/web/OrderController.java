@@ -127,7 +127,6 @@ public class OrderController {
     }
 
 
-
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/orders-by-mechanic/{id}")
     public String orderByMech(@PathVariable int id, Model model) {

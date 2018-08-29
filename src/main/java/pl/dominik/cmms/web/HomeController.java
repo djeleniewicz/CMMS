@@ -1,11 +1,9 @@
 package pl.dominik.cmms.web;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import pl.dominik.cmms.entity.security.User;
-import pl.dominik.cmms.service.security.CurrentUser;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.dominik.cmms.service.security.UserService;
 
 @Controller
@@ -18,7 +16,7 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String index(@RequestParam(defaultValue = "Nieznajomy") String name, Model model){
+    public String index(@RequestParam(defaultValue = "Nieznajomy") String name, Model model) {
         model.addAttribute("name", name);
         return "index";
     }
