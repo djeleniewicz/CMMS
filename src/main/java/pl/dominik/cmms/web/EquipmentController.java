@@ -111,11 +111,4 @@ public class EquipmentController {
         return "redirect:/equipment";
     }
 
-//    @RequestMapping(value = "/confirmDelEquip/{id}", method = RequestMethod.POST)
-//    public String delEquipAcc(@PathVariable int id) {
-//        Equipment equipment = equipmentRepository.findOne(id);
-//        equipmentRepository.delete(equipment);
-//        return "redirect:/equipment";
-//    }
-
 }

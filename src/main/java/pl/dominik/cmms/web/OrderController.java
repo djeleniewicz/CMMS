@@ -216,7 +216,6 @@ public class OrderController {
         order = orderRepository.findOne(id);
         Name name = nameRepository.findOne(3);
         Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
-        System.out.println(equipment);
         if (order.getName().getId() == 1) {
             Status status = statusRepository.findOne(1);
             equipment.setStatus(status);
@@ -224,7 +223,6 @@ public class OrderController {
             Status status = statusRepository.findOne(2);
             equipment.setStatus(status);
         }
-        System.out.println(equipment);
         equipmentRepository.save(equipment);
         order.setId(id);
         order.setEnd(end);
