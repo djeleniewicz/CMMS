@@ -37,7 +37,6 @@ public class UserController {
     public String addUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        System.out.println("getem");
         return "user/form";
     }
 
@@ -51,14 +50,14 @@ public class UserController {
     }
 
     @RequestMapping("/update-user/{id}")
-    public String editEquip(@PathVariable int id, Model model) {
+    public String editUser(@PathVariable int id, Model model) {
         User user = userRepository.findOne(id);
         model.addAttribute("user", user);
         return "/user/formup";
     }
 
     @RequestMapping(value = "/update-user", method = RequestMethod.POST)
-    public String editEquip(@RequestParam int id, @Valid User user, BindingResult result) {
+    public String editUserPost(@RequestParam int id, @Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             return "user/formup";
         }
@@ -70,9 +69,24 @@ public class UserController {
 
 
     @RequestMapping("/delete-user/{id}")
-    public String delEquip(@PathVariable int id) {
+    public String delUser(@PathVariable int id) {
         User user = userRepository.findOne(id);
         user.setEnabled(0);
+        userRepository.save(user);
+        return "redirect:/user";
+    }
+
+    @RequestMapping("/user-disabled")
+    public String usersEnabled(Model model) {
+        List<User> user = userRepository.findAllByEnabledEquals(0);
+        model.addAttribute("user", user);
+        return "user/user";
+    }
+
+    @RequestMapping("/enable-user/{id}")
+    public String enableUser(@PathVariable int id) {
+        User user = userRepository.findOne(id);
+        user.setEnabled(1);
         userRepository.save(user);
         return "redirect:/user";
     }
