@@ -32,7 +32,7 @@ public class MechanicController {
     @Secured("ROLE_ADMIN")
     @RequestMapping("/mechanic")
     public String mechanics(Model model) {
-        List<User> mechanic = userRepository.findAllByRolesId(2);
+        List<User> mechanic = userRepository.findAllByEnabledEquals(1);
         model.addAttribute("mechanic", mechanic);
         return "mechanics/mechanic";
     }
@@ -85,5 +85,21 @@ public class MechanicController {
         return "redirect:/mechanic";
     }
 
+    @Secured("ROLE_ADMIN")
+    @RequestMapping("/mechanic-disabled")
+    public String disabledMechanic(Model model) {
+        List<User> mechanic = userRepository.findAllByEnabledEquals(0);
+        model.addAttribute("mechanic", mechanic);
+        return "mechanics/mechanic";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping("/enable-mech/{id}")
+    public String enableMechanic(@PathVariable int id) {
+        User user = userRepository.findOne(id);
+        user.setEnabled(0);
+        userService.saveMechanic(user);
+        return "redirect:/mechanic";
+    }
 
 }
