@@ -1,5 +1,9 @@
 package pl.dominik.cmms.web;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,8 +21,11 @@ import pl.dominik.cmms.repository.order.NameRepository;
 import pl.dominik.cmms.repository.order.OrderRepository;
 import pl.dominik.cmms.repository.security.UserRepository;
 import pl.dominik.cmms.service.security.CurrentUser;
+import pl.dominik.cmms.util.PdfConverter;
 
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -233,4 +240,22 @@ public class OrderController {
 
     }
 
+    @RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> ordersReport() throws IOException {
+
+        List<Order> ordersList = orderRepository.findAllByName_IdOrderByEndedDesc(3);
+
+        ByteArrayInputStream bis = PdfConverter.orderReport(ordersList);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=ordersReport.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+    }
 }
+
