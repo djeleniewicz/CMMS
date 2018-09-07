@@ -230,6 +230,7 @@ public class OrderController {
         order.setName(name);
         orderRepository.save(order);
         return "redirect:/";
+
     }
 
 }
