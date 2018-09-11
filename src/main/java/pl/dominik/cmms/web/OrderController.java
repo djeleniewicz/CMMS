@@ -233,6 +233,7 @@ public class OrderController {
         equipmentRepository.save(equipment);
         order.setId(id);
         order.setEnd(end);
+        order.setMechanic(customUser.getUser());
         order.setEnded(new Timestamp(System.currentTimeMillis()));
         order.setName(name);
         orderRepository.save(order);

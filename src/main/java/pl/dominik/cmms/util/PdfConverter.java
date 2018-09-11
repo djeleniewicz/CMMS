@@ -22,8 +22,8 @@ public class PdfConverter {
         try {
 
             PdfPTable table = new PdfPTable(9);
-            table.setWidthPercentage(100);
-            table.setWidths(new int[]{10, 40, 40, 40, 40, 40, 40, 40, 40});
+            table.setWidthPercentage(110);
+            table.setWidths(new int[]{10, 60, 40, 60, 30, 50, 50, 50, 50});
 
             Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 

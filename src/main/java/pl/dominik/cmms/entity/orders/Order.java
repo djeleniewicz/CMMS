@@ -34,6 +34,9 @@ public class Order {
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private User mechanic;
+
 
     public String getEnd() {
         return end;
@@ -41,6 +44,14 @@ public class Order {
 
     public void setEnd(String end) {
         this.end = end;
+    }
+
+    public User getMechanic() {
+        return mechanic;
+    }
+
+    public void setMechanic(User mechanic) {
+        this.mechanic = mechanic;
     }
 
     public Equipment getEquipment() {
