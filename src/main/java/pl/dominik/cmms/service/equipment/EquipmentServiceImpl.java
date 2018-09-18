@@ -9,7 +9,6 @@ import java.util.List;
 @Service
 public class EquipmentServiceImpl implements EquipmentService {
 
-
     private final EquipmentRepository equipmentRepository;
 
     public EquipmentServiceImpl(EquipmentRepository equipmentRepository) {

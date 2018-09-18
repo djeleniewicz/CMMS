@@ -12,4 +12,5 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Integer> {
     Equipment findByName(String name);
 
     List<Equipment> findAllByEnable(int i);
+
 }

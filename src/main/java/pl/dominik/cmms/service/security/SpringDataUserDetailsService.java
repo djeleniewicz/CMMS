@@ -20,7 +20,6 @@ public class SpringDataUserDetailsService implements UserDetailsService {
         this.userService = userService;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userService.findByUserName(username);

@@ -27,7 +27,6 @@ public class Order {
     @ManyToOne
     private Equipment equipment;
 
-
     @ManyToOne
     private Name name;
 
@@ -36,7 +35,6 @@ public class Order {
 
     @ManyToOne
     private User mechanic;
-
 
     public String getEnd() {
         return end;

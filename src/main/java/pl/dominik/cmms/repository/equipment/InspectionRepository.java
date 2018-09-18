@@ -6,5 +6,4 @@ import pl.dominik.cmms.entity.equipment.Inspection;
 
 @Repository
 public interface InspectionRepository extends JpaRepository<Inspection, Integer> {
-
 }
