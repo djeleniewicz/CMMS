@@ -1,19 +1,7 @@
 package pl.dominik.cmms.util;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import pl.dominik.cmms.entity.orders.Order;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class PdfConverter {
-
+/*
     public static ByteArrayInputStream orderReport(List<Order> ordersList) {
 
         Document document = new Document();
@@ -135,7 +123,7 @@ public class PdfConverter {
 
         return new ByteArrayInputStream(out.toByteArray());
     }
-
+*/
 }
 
 

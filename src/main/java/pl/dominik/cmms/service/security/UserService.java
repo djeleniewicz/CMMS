@@ -5,7 +5,11 @@ import pl.dominik.cmms.entity.security.User;
 public interface UserService {
     User findByUserName(String name);
 
-    void saveUser(User user);
+    User findById(Long id);
+
+    User saveUser(User user);
 
     void saveMechanic(User user);
+
+    void saveAdmin(User user);
 }

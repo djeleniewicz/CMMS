@@ -2,6 +2,7 @@ package pl.dominik.cmms.entity.security;
 
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "role")
@@ -12,6 +13,25 @@ public class Role {
     private int id;
     @Column(name = "role")
     private String name;
+
+    private Timestamp created;
+    private User createdBy;
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
 
     public int getId() {
         return id;

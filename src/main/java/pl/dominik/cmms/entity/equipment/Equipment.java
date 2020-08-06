@@ -13,36 +13,48 @@ public class Equipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     @NotBlank
     private String name;
     @NotNull
-    private Date yearOfProduction;
-    private int enable;
-
-    @ManyToOne
-    private Inspection inspection;
-
+    private Date dateOfProduction;
     @ManyToOne
     private Location location;
 
-    @ManyToOne
-    private Status status;
+    private boolean status;
+    private String codeInternal;
+    private String severity;
+    private String model;
+    private String producer;
+    private int intervalInspectionDays;
 
-
-    public int getEnable() {
-        return enable;
+    public int getIntervalInspectionDays() {
+        return intervalInspectionDays;
     }
 
-    public void setEnable(int enable) {
-        this.enable = enable;
+    public void setIntervalInspectionDays(int intervalInspectionDays) {
+        this.intervalInspectionDays = intervalInspectionDays;
     }
 
-    public int getId() {
+    /*
+    tbd
+    id instrukcji obsługi
+    głowny przegląd, dodatkowy
+     */
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,23 +66,6 @@ public class Equipment {
         this.name = name;
     }
 
-
-    public Date getYearOfProduction() {
-        return yearOfProduction;
-    }
-
-    public void setYearOfProduction(Date yearOfProduction) {
-        this.yearOfProduction = yearOfProduction;
-    }
-
-    public Inspection getInspection() {
-        return inspection;
-    }
-
-    public void setInspection(Inspection inspection) {
-        this.inspection = inspection;
-    }
-
     public Location getLocation() {
         return location;
     }
@@ -79,16 +74,48 @@ public class Equipment {
         this.location = location;
     }
 
-    public Status getStatus() {
-        return status;
+    public Date getDateOfProduction() {
+        return dateOfProduction;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setDateOfProduction(Date dateOfProduction) {
+        this.dateOfProduction = dateOfProduction;
+    }
+
+    public String getCodeInternal() {
+        return codeInternal;
+    }
+
+    public void setCodeInternal(String codeInternal) {
+        this.codeInternal = codeInternal;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
     }
 
     @Override
     public String toString() {
-        return "Id=" + id + " | name=" + name + " | location=" + location;
+        return "Id=" + id + " | name=" + name + " | location=" + location + " | status=" + (this.isStatus() ? "Active" : "Not active");
     }
 }

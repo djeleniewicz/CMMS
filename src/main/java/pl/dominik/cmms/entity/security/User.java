@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.util.Set;
 
 
@@ -13,7 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     @Column(nullable = false, unique = true)
     @Size(min = 4, max = 15)
     private String username;
@@ -25,6 +26,9 @@ public class User {
     @NotBlank
     private String lastName;
     private int enabled;
+
+    private Timestamp created;
+    private Timestamp lastUpdated;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
@@ -47,11 +51,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -85,6 +89,22 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
+    public Timestamp getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Timestamp lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     @Override

@@ -6,11 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.equipment.Equipment;
-import pl.dominik.cmms.entity.equipment.Inspection;
 import pl.dominik.cmms.entity.equipment.Location;
 import pl.dominik.cmms.entity.equipment.Status;
 import pl.dominik.cmms.repository.equipment.EquipmentRepository;
-import pl.dominik.cmms.repository.equipment.InspectionRepository;
 import pl.dominik.cmms.repository.equipment.LocationRepository;
 import pl.dominik.cmms.repository.equipment.StatusRepository;
 
@@ -23,14 +21,12 @@ public class EquipmentController {
     private final EquipmentRepository equipmentRepository;
     private final StatusRepository statusRepository;
     private final LocationRepository locationRepository;
-    private final InspectionRepository inspectionRepository;
 
 
-    public EquipmentController(EquipmentRepository equipmentRepository, StatusRepository statusRepository, LocationRepository locationRepository, InspectionRepository inspectionRepository) {
+    public EquipmentController(EquipmentRepository equipmentRepository, StatusRepository statusRepository, LocationRepository locationRepository) {
         this.equipmentRepository = equipmentRepository;
         this.statusRepository = statusRepository;
         this.locationRepository = locationRepository;
-        this.inspectionRepository = inspectionRepository;
     }
 
     @ModelAttribute("status")
@@ -43,15 +39,15 @@ public class EquipmentController {
         return locationRepository.findAll();
     }
 
-    @ModelAttribute("inspection")
-    public List<Inspection> getInsp() {
-        return inspectionRepository.findAll();
-    }
+//    @ModelAttribute("inspection")
+//    public List<Inspection> getInsp() {
+//        return inspectionRepository.findAll();
+//    }
 
     @Secured("ROLE_ADMIN")
     @RequestMapping("/equipment")
     public String homeEquipment(Model model) {
-        List<Equipment> equipment = equipmentRepository.findAllByEnable(1);
+        List<Equipment> equipment = equipmentRepository.findAllByStatus(true);
         model.addAttribute("equipment", equipment);
         return "equipment/equipment";
     }
@@ -59,7 +55,7 @@ public class EquipmentController {
     @Secured("ROLE_ADMIN")
     @RequestMapping("/equipment-off")
     public String equipmentOff(Model model) {
-        List<Equipment> list = equipmentRepository.findAllByEnable(0);
+        List<Equipment> list = equipmentRepository.findAllByStatus(false);
         model.addAttribute("equipment", list);
         return "order/equipment";
     }
@@ -78,7 +74,7 @@ public class EquipmentController {
         if (result.hasErrors()) {
             return "equipment/form";
         }
-        equipment.setEnable(1);
+        equipment.setStatus(true);
         equipmentRepository.save(equipment);
         return "redirect:/equipment";
     }
@@ -97,7 +93,7 @@ public class EquipmentController {
         if (result.hasErrors()) {
             return "equipment/formup";
         }
-        equipment.setId(id);
+//        equipment.setId(id);
         equipmentRepository.save(equipment);
         return "redirect:/equipment";
     }
@@ -106,7 +102,7 @@ public class EquipmentController {
     @RequestMapping("/delete-equip/{id}")
     public String delEquip(@PathVariable int id) {
         Equipment equipment = equipmentRepository.findOne(id);
-        equipment.setEnable(0);
+        equipment.setStatus(true);
         equipmentRepository.save(equipment);
         return "redirect:/equipment";
     }

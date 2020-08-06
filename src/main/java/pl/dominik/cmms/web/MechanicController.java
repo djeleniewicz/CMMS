@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import pl.dominik.cmms.entity.security.User;
 import pl.dominik.cmms.repository.security.RoleRepository;
 import pl.dominik.cmms.repository.security.UserRepository;
@@ -64,16 +63,16 @@ public class MechanicController {
         return "/mechanics/formup";
     }
 
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/update-mech", method = RequestMethod.POST)
-    public String editMech(@RequestParam int id, @Valid User mechanic, BindingResult result) {
-        if (result.hasErrors()) {
-            return "mechanics/formup";
-        }
-        mechanic.setId(id);
-        userService.saveMechanic(mechanic);
-        return "redirect:/mechanic";
-    }
+//    @Secured("ROLE_ADMIN")
+//    @RequestMapping(value = "/update-mech", method = RequestMethod.POST)
+//    public String editMech(@RequestParam int id, @Valid User mechanic, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "mechanics/formup";
+//        }
+//        mechanic.setId(id);
+//        userService.saveMechanic(mechanic);
+//        return "redirect:/mechanic";
+//    }
 
 
     @Secured("ROLE_ADMIN")

@@ -1,18 +1,18 @@
-package pl.dominik.cmms.entity.equipment;
+package pl.dominik.cmms.entity.requests;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "inspection")
-public class Inspection {
+@Table(name = "production_blocked")
+public class ProductionBlocked {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @NotBlank
-    private String dateInspection;
+    private String name;
 
     public int getId() {
         return id;
@@ -22,16 +22,16 @@ public class Inspection {
         this.id = id;
     }
 
-    public String getDateInspection() {
-        return dateInspection;
+    public String getName() {
+        return name;
     }
 
-    public void setDateInspection(String dateInspection) {
-        this.dateInspection = dateInspection;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return dateInspection;
+        return name;
     }
 }

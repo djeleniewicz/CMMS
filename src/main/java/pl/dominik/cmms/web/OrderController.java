@@ -1,9 +1,5 @@
 package pl.dominik.cmms.web;
 
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -11,21 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.dominik.cmms.entity.equipment.Equipment;
-import pl.dominik.cmms.entity.equipment.Status;
-import pl.dominik.cmms.entity.orders.Name;
-import pl.dominik.cmms.entity.orders.Order;
-import pl.dominik.cmms.entity.security.User;
+import pl.dominik.cmms.entity.requests.Order;
 import pl.dominik.cmms.repository.equipment.EquipmentRepository;
 import pl.dominik.cmms.repository.equipment.StatusRepository;
-import pl.dominik.cmms.repository.order.NameRepository;
-import pl.dominik.cmms.repository.order.OrderRepository;
+import pl.dominik.cmms.repository.requests.OrderRepository;
 import pl.dominik.cmms.repository.security.UserRepository;
 import pl.dominik.cmms.service.security.CurrentUser;
-import pl.dominik.cmms.util.PdfConverter;
 
 import javax.validation.Valid;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -33,29 +22,26 @@ import java.util.List;
 public class OrderController {
 
     private final OrderRepository orderRepository;
-    private final NameRepository nameRepository;
     private final EquipmentRepository equipmentRepository;
     private final StatusRepository statusRepository;
     private final UserRepository userRepository;
 
-
-    public OrderController(OrderRepository orderRepository, NameRepository nameRepository, EquipmentRepository equipmentRepository, StatusRepository statusRepository, UserRepository userRepository) {
+    public OrderController(OrderRepository orderRepository, EquipmentRepository equipmentRepository, StatusRepository statusRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
-        this.nameRepository = nameRepository;
         this.equipmentRepository = equipmentRepository;
         this.statusRepository = statusRepository;
         this.userRepository = userRepository;
     }
 
-    @ModelAttribute("name")
-    public List<Name> getStatus() {
-        return nameRepository.findAll();
-    }
-
-    @ModelAttribute("namesforuser")
-    public List<Name> userStatus() {
-        return nameRepository.findAllByNameOrName("DAMAGE", "INSPECTION");
-    }
+//    @ModelAttribute("name")
+//    public List<Name> getStatus() {
+//        return nameRepository.findAll();
+//    }
+//
+//    @ModelAttribute("namesforuser")
+//    public List<Name> userStatus() {
+//        return nameRepository.findAllByNameOrName("DAMAGE", "INSPECTION");
+//    }
 
     @ModelAttribute("equipments")
     public List<Equipment> selectEquipment() {
@@ -103,7 +89,7 @@ public class OrderController {
         if (result.hasErrors()) {
             return "order/formup";
         }
-        order.setId(id);
+//        order.setId(id);
         orderRepository.save(order);
         return "redirect:/order";
     }
@@ -120,16 +106,16 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/showOrders")
     public String orders(Model model) {
-        List<Order> order = orderRepository.findAllByName_IdOrName_IdOrderByCreatedDesc(1, 2);
-        model.addAttribute("order", order);
+//        List<Order> order = orderRepository.findAllByName_IdOrName_IdOrderByCreatedDesc(1, 2);
+//        model.addAttribute("order", order);
         return "order/mech";
     }
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/ordersHistory")
     public String history(Model model) {
-        List<Order> order = orderRepository.findAllByName_IdOrderByEndedDesc(3);
-        model.addAttribute("order", order);
+//        List<Order> order = orderRepository.findAllByName_IdOrderByEndedDesc(3);
+//        model.addAttribute("order", order);
         return "order/mechENDED";
     }
 
@@ -137,27 +123,27 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/orders-by-mechanic/{id}")
     public String orderByMech(@PathVariable int id, Model model) {
-        User user = userRepository.findOne(id);
-        List<Order> orders = orderRepository.findAllByUserOrderByEndedDesc(user);
-        model.addAttribute("order", orders);
+//        User user = userRepository.findOne(id);
+//        List<Order> orders = orderRepository.findAllByUserOrderByEndedDesc(user);
+//        model.addAttribute("order", orders);
         return "order/mechENDED";
     }
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/orders-by-equip/{id}")
     public String orderByEquip(@PathVariable int id, Model model) {
-        Equipment equipment = equipmentRepository.findOne(id);
-        List<Order> orders = orderRepository.findAllByEquipmentOrderByEndedDesc(equipment);
-        model.addAttribute("order", orders);
+//        Equipment equipment = equipmentRepository.findOne(id);
+//        List<Order> orders = orderRepository.findAllByEquipmentOrderByEndedDesc(equipment);
+//        model.addAttribute("order", orders);
         return "order/mechENDED";
     }
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping("/orders-by-user/{id}")
     public String orderByUser(@PathVariable int id, Model model) {
-        User user = userRepository.findOne(id);
-        List<Order> orders = orderRepository.findAllByUserOrderByEndedDesc(user);
-        model.addAttribute("order", orders);
+//        User user = userRepository.findOne(id);
+//        List<Order> orders = orderRepository.findAllByUserOrderByEndedDesc(user);
+//        model.addAttribute("order", orders);
         return "order/mechENDED";
     }
 
@@ -184,25 +170,25 @@ public class OrderController {
         if (result.hasErrors()) {
             return "order/formUser";
         }
-        Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
-        if (order.getName().getName().equals("WORKING")) {
-            Status status = statusRepository.findOne(2);
-            equipment.setStatus(status);
-        } else if (order.getName().getName().equals("DAMAGE")) {
-            Status status = statusRepository.findOne(1);
-            equipment.setStatus(status);
-        }
-        order.setUser(customUser.getUser());
-        order.setCreated(new Timestamp(System.currentTimeMillis()));
-        equipmentRepository.save(equipment);
-        orderRepository.save(order);
+//        Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
+//        if (order.getName().getName().equals("WORKING")) {
+//            Status status = statusRepository.findOne(2);
+//            equipment.setStatus(true);
+//        } else if (order.getName().getName().equals("DAMAGE")) {
+//            Status status = statusRepository.findOne(1);
+//            equipment.setStatus(false);
+//        }
+//        order.setUser(customUser.getUser());
+//        order.setCreated(new Timestamp(System.currentTimeMillis()));
+//        equipmentRepository.save(equipment);
+//        orderRepository.save(order);
         return "redirect:/";
     }
 
     @Secured({"ROLE_MECH", "ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping("/equipment-user")
     public String equipment(Model model) {
-        List<Equipment> list = equipmentRepository.findAllByEnable(1);
+        List<Equipment> list = equipmentRepository.findAllByStatus(true);
         model.addAttribute("equipment", list);
         return "order/equipment";
     }
@@ -219,16 +205,15 @@ public class OrderController {
     @Secured({"ROLE_MECH", "ROLE_ADMIN"})
     @RequestMapping(value = "/end-order", method = RequestMethod.POST)
     public String endOrder(@RequestParam int id, @AuthenticationPrincipal CurrentUser customUser, @ModelAttribute Order order) {
+        /*
         String end = order.getEnd();
         order = orderRepository.findOne(id);
         Name name = nameRepository.findOne(3);
         Equipment equipment = equipmentRepository.findOne(order.getEquipment().getId());
         if (order.getName().getId() == 1) {
-            Status status = statusRepository.findOne(1);
-            equipment.setStatus(status);
+            equipment.setStatus(false);
         } else if (order.getName().getId() == 3) {
-            Status status = statusRepository.findOne(2);
-            equipment.setStatus(status);
+            equipment.setStatus(true);
         }
         equipmentRepository.save(equipment);
         order.setId(id);
@@ -237,26 +222,28 @@ public class OrderController {
         order.setEnded(new Timestamp(System.currentTimeMillis()));
         order.setName(name);
         orderRepository.save(order);
+
+         */
         return "redirect:/";
 
     }
 
-    @RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> ordersReport() throws IOException {
-
-        List<Order> ordersList = orderRepository.findAllByName_IdOrderByEndedDesc(3);
-
-        ByteArrayInputStream bis = PdfConverter.orderReport(ordersList);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=ordersReport.pdf");
-
-        return ResponseEntity
-                .ok()
-                .headers(headers)
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(bis));
-    }
+//    @RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
+//            produces = MediaType.APPLICATION_PDF_VALUE)
+//    public ResponseEntity<InputStreamResource> ordersReport() throws IOException {
+//
+//        List<Order> ordersList = orderRepository.findAllByName_IdOrderByEndedDesc(3);
+//
+////        ByteArrayInputStream bis = PdfConverter.orderReport(ordersList);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Disposition", "inline; filename=ordersReport.pdf");
+//
+//        return ResponseEntity
+//                .ok()
+//                .headers(headers)
+//                .contentType(MediaType.APPLICATION_PDF)
+//                .body(new InputStreamResource(bis));
+//    }
 }
 
