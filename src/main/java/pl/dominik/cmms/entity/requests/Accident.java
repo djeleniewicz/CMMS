@@ -2,11 +2,12 @@ package pl.dominik.cmms.entity.requests;
 
 import org.hibernate.validator.constraints.NotBlank;
 import pl.dominik.cmms.entity.equipment.Equipment;
+import pl.dominik.cmms.entity.equipment.Status;
 import pl.dominik.cmms.entity.security.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "accidents")
@@ -16,8 +17,8 @@ public class Accident {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    private Timestamp created;
-    private Timestamp ended;
+    private LocalDateTime created;
+    private LocalDateTime ended;
     private String endNote;
     private boolean dangerous;
 
@@ -31,9 +32,15 @@ public class Accident {
     // user detected
     @ManyToOne
     private User reportedBy;
-    // tbd user assigned
+
     @ManyToOne
     private User assignedTo;
+
+    @ManyToOne
+    private Status status;
+
+    @ManyToOne
+    private Priority priority;
 
     public Long getId() {
         return id;
@@ -49,22 +56,6 @@ public class Accident {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Timestamp getCreated() {
-        return created;
-    }
-
-    public void setCreated(Timestamp created) {
-        this.created = created;
-    }
-
-    public Timestamp getEnded() {
-        return ended;
-    }
-
-    public void setEnded(Timestamp ended) {
-        this.ended = ended;
     }
 
     public String getEndNote() {
@@ -121,5 +112,37 @@ public class Accident {
 
     public void setAssignedTo(User assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getEnded() {
+        return ended;
+    }
+
+    public void setEnded(LocalDateTime ended) {
+        this.ended = ended;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 }

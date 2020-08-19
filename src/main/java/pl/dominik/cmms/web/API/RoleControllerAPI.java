@@ -7,10 +7,8 @@ import pl.dominik.cmms.entity.security.Role;
 import pl.dominik.cmms.repository.security.RoleRepository;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.apache.tomcat.jni.Time.now;
 
 @Controller
 @RestController
@@ -37,7 +35,8 @@ public class RoleControllerAPI {
 
     @PostMapping("/add-role")
     public Role createRole(@Valid @RequestBody Role role) {
-        role.setCreated(new Timestamp(now()));
+        LocalDateTime now = LocalDateTime.now();
+        role.setCreated(now);
 //        role.setCreatedBy();
         return roleRepository.save(role);
     }

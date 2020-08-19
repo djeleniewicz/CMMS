@@ -28,19 +28,25 @@ public class EquipmentControllerAPI {
 
 
     @GetMapping("/equip/{id}")
-    public ResponseEntity<Equipment> getRoleById(@PathVariable(value = "id") Long roleId) {
+    public ResponseEntity<Equipment> getEquipById(@PathVariable(value = "id") Long roleId) {
         Equipment equipment = equipmentRepository.findById(roleId);
         return ResponseEntity.ok(equipment);
     }
 
     @PostMapping("/add-equip")
-    public Equipment createUser(@Valid @RequestBody Equipment equipment) {
+    public Equipment createEquip(@Valid @RequestBody Equipment equipment) {
 //        equipment.setCreated(new Timestamp(now()));
         return equipmentRepository.save(equipment);
     }
 
-    @PutMapping("/update-equip/{id}")
-    public ResponseEntity<Equipment> updateUser(
+    @PostMapping("/end-equip/{id}")
+    public Equipment endEquip(@PathVariable(value = "id") Long equipId, @Valid @RequestBody Equipment equipment) {
+//        equipment.setEnd(new Timestamp(now()));
+        return equipmentRepository.save(equipment);
+    }
+
+    @PostMapping("/update-equip/{id}")
+    public ResponseEntity<Equipment> updateEquip(
             @PathVariable(value = "id") Long equipId, @Valid @RequestBody Equipment equipDetails) {
         Equipment equipment = equipmentRepository.findById(equipId);
 

@@ -6,10 +6,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Getting Started: Serving Web Content</title>
+    <meta charset="UTF-8"/>
+    <link href="/main.css" rel="stylesheet"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 </head>
 <body>
+<div id="react"></div>
+<script src="built/bundle.js"></script>
 <nav th:include="fragments/header :: headerFragment"></nav>
 <p th:text="#{app.name}">Nazwa aplikacji</p>
 

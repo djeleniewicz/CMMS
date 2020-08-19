@@ -1,5 +1,6 @@
 package pl.dominik.cmms.web.API;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -8,16 +9,16 @@ import pl.dominik.cmms.repository.security.UserRepository;
 import pl.dominik.cmms.service.security.UserServiceImpl;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.apache.tomcat.jni.Time.now;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @RestController
 @RequestMapping("/api/v1")
 public class UserControllerAPI {
 
+    @Autowired
     private final UserRepository userRepository;
     private final UserServiceImpl userService;
 
@@ -32,15 +33,16 @@ public class UserControllerAPI {
         return user;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/update-user/{id}")
     public ResponseEntity<User> getUsersById(@PathVariable(value = "id") Long userId) {
         User user = userRepository.findById(userId);
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/add-user")
+    @PostMapping("/update-user")
     public User createUser(@Valid @RequestBody User user) {
-        user.setCreated(new Timestamp(now()));
+        user.setCreated(LocalDateTime.now());
+        user.setLastUpdated(LocalDateTime.now());
         return userService.saveUser(user);
     }
 
@@ -49,10 +51,10 @@ public class UserControllerAPI {
             @PathVariable(value = "id") Long userId, @Valid @RequestBody User userDetails) {
         User user = userService.findById(userId);
         user.setUsername(userDetails.getUsername());
-//        user.setPassword(userDetails.getPassword());
+        user.setPassword(userDetails.getPassword());
 //        user.setLastName(userDetails.getLastName());
 //        user.setFirstName(userDetails.getFirstName());
-        user.setLastUpdated(new Timestamp(System.currentTimeMillis()));
+        user.setLastUpdated(LocalDateTime.now());
         final User updatedUser = userService.saveUser(user);
         return ResponseEntity.ok(updatedUser);
     }

@@ -7,4 +7,6 @@ import pl.dominik.cmms.entity.equipment.Status;
 @Repository
 public interface StatusRepository extends JpaRepository<Status, Integer> {
 
+    Status findByStatus(String status);
+
 }

@@ -1,4 +1,4 @@
-package pl.dominik.cmms.repository.equipment;
+package pl.dominik.cmms.repository.requests;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
