@@ -1,4 +1,4 @@
-package pl.dominik.cmms.web;
+package pl.dominik.cmms.web.old;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

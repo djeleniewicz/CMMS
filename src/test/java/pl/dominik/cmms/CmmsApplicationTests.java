@@ -18,13 +18,13 @@ public class CmmsApplicationTests {
     public void contextLoads() {
     }
 
-    private int port = 8080;
-
+    //
+//    private int port = 8080;
     @Autowired
     private TestRestTemplate restTemplate;
 
     private String getRootUrl() {
-        return "http://localhost:" + port;
+        return "https://vast-wave-10839.herokuapp.com";
     }
 
     @Test
@@ -38,7 +38,7 @@ public class CmmsApplicationTests {
             user.setPassword("admin" + i);
             user.setUsername("admin" + i);
 
-            ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/v1/add-user", user, User.class);
+            ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/v1/update-user", user, User.class);
             Assert.assertNotNull(postResponse);
             Assert.assertNotNull(postResponse.getBody());
             System.out.println(postResponse);

@@ -19,7 +19,8 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String index(@RequestParam(defaultValue = "Nieznajomy") String name, @AuthenticationPrincipal CurrentUser customUser, Model model) {
+    public String index(@RequestParam(defaultValue = "Nieznajomy") String name,
+                        @AuthenticationPrincipal CurrentUser customUser, Model model) {
         try {
             if (customUser.getUser() != null) {
                 User user = customUser.getUser();
@@ -27,6 +28,7 @@ public class HomeController {
                 model.addAttribute(name);
             }
         } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
         }
         model.addAttribute("name", name);
         return "index";
