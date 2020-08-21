@@ -29,14 +29,20 @@ public class CmmsApplicationTests {
 
     @Test
     public void testCreateUser() {
-        int testCase = 10;
+
+        String[] names = {"Marek", "Damian", "Mateusz", "Janusz", "Mieczysław", "Krzysztof",
+                "Adam", "Jakub"};
+        String[] lastnames = {"Add", "Dell", "Hpa", "Grażyna", "Jań", "Kry",
+                "Dama", "Kub"};
+
+        int testCase = names.length;
         for (int i = 0; i < testCase; i++) {
 
             User user = new User();
-            user.setFirstName("admin" + i);
-            user.setLastName("admin" + i);
-            user.setPassword("admin" + i);
-            user.setUsername("admin" + i);
+            user.setFirstName(names[i]);
+            user.setLastName(lastnames[i]);
+            user.setPassword(names[i]);
+            user.setUsername(names[i].substring(0, 1) + lastnames[i]);
 
             ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/v1/update-user", user, User.class);
             Assert.assertNotNull(postResponse);

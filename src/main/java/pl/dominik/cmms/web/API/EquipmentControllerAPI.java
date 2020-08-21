@@ -9,6 +9,7 @@ import pl.dominik.cmms.repository.equipment.EquipmentRepository;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @Controller
 @RestController
 @RequestMapping("/api/v1")
@@ -27,25 +28,25 @@ public class EquipmentControllerAPI {
     }
 
 
-    @GetMapping("/equip/{id}")
+    @GetMapping("/update-equip/{id}")
     public ResponseEntity<Equipment> getEquipById(@PathVariable(value = "id") Long roleId) {
         Equipment equipment = equipmentRepository.findById(roleId);
         return ResponseEntity.ok(equipment);
     }
 
-    @PostMapping("/add-equip")
+    @PostMapping("/update-equip")
     public Equipment createEquip(@Valid @RequestBody Equipment equipment) {
 //        equipment.setCreated(new Timestamp(now()));
         return equipmentRepository.save(equipment);
     }
 
-    @PostMapping("/end-equip/{id}")
-    public Equipment endEquip(@PathVariable(value = "id") Long equipId, @Valid @RequestBody Equipment equipment) {
+    @PutMapping("/del-equip/{id}")
+    public Equipment deleteEquip(@PathVariable(value = "id") Long equipId, @Valid @RequestBody Equipment equipment) {
 //        equipment.setEnd(new Timestamp(now()));
         return equipmentRepository.save(equipment);
     }
 
-    @PostMapping("/update-equip/{id}")
+    @PutMapping("/update-equip/{id}")
     public ResponseEntity<Equipment> updateEquip(
             @PathVariable(value = "id") Long equipId, @Valid @RequestBody Equipment equipDetails) {
         Equipment equipment = equipmentRepository.findById(equipId);

@@ -29,8 +29,7 @@ public class UserControllerAPI {
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        List<User> user = userRepository.findAll();
-        return user;
+        return userRepository.findAll();
     }
 
     @GetMapping("/update-user/{id}")
