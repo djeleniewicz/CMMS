@@ -49,14 +49,8 @@ public class EquipmentControllerAPI {
     @PutMapping("/update-equip/{id}")
     public ResponseEntity<Equipment> updateEquip(
             @PathVariable(value = "id") Long equipId, @Valid @RequestBody Equipment equipDetails) {
-        Equipment equipment = equipmentRepository.findById(equipId);
-
-        equipment.setName(equipDetails.getName());
-//        user.setPassword(userDetails.getPassword());
-//        user.setLastName(userDetails.getLastName());
-//        user.setFirstName(userDetails.getFirstName());
-//        equipment.se(new Timestamp(System.currentTimeMillis()));
-        final Equipment updatedEquip = equipmentRepository.save(equipment);
+//        Equipment equipment = equipmentRepository.findById(equipId);
+        final Equipment updatedEquip = equipmentRepository.save(equipDetails);
         return ResponseEntity.ok(updatedEquip);
     }
 }
