@@ -44,7 +44,8 @@ public class CmmsApplicationTests {
             user.setPassword(names[i]);
             user.setUsername(names[i].substring(0, 1) + lastnames[i]);
 
-            ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/v1/update-user", user, User.class);
+            ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/v1/update-user",
+                    user, User.class);
             Assert.assertNotNull(postResponse);
             Assert.assertNotNull(postResponse.getBody());
             System.out.println(postResponse);

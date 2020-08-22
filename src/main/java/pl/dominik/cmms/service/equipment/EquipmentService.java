@@ -9,4 +9,5 @@ public interface EquipmentService {
     Equipment findByName(String name);
 
     List<Equipment> findAll();
+
 }

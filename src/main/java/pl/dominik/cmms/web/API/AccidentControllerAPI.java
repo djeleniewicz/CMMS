@@ -32,8 +32,7 @@ public class AccidentControllerAPI {
 
     @GetMapping("/accidents")
     public List<Accident> getAllAccidents() {
-        List<Accident> accidents = accidentRepository.findAll();
-        return accidents;
+        return accidentRepository.findAll();
     }
 
     @GetMapping("/accident/{id}")
@@ -78,4 +77,35 @@ public class AccidentControllerAPI {
         final Accident updatedAccident = accidentRepository.save(accident);
         return ResponseEntity.ok(updatedAccident);
     }
+
+    @GetMapping("/user/accidents")
+    public List<Accident> getAllAccidentsCreatedByUser() {
+        long id = 23;
+        return accidentRepository.findAllByCreatedBy(id);
+    }
+
+    @PostMapping("/user/add-accident")
+    public Accident createAccidentsCreatedByUser(@Valid @RequestBody Accident accident) {
+        accident.setCreated(LocalDateTime.now());
+        accident.setReportedBy(userRepository.findById((long) 9));
+        accident.setStatus(statusRepository.findByStatus("New"));
+        return accidentRepository.save(accident);
+    }
+
+    @GetMapping("/user/update-accident/{id}")
+    public Accident getAccidentCreatedByUser(@PathVariable(value = "id") Long accidentId) {
+        return accidentRepository.findById(accidentId);
+    }
+
+    @PutMapping("/user/update-accident/{id}")
+    public ResponseEntity<Accident> updateAccidentUser(
+            @PathVariable(value = "id") Long accidentId, @Valid @RequestBody Accident accidentDetails) {
+        Accident accident = accidentRepository.findById(accidentId);
+        accident.setNote(accidentDetails.getNote());
+        accident.setTitle(accidentDetails.getTitle());
+        accident.setPriority(accidentDetails.getPriority());
+        final Accident updatedAccident = accidentRepository.save(accident);
+        return ResponseEntity.ok(accidentRepository.save(updatedAccident));
+    }
+
 }

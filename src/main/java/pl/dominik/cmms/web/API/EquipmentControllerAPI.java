@@ -23,8 +23,7 @@ public class EquipmentControllerAPI {
 
     @GetMapping("/equips")
     public List<Equipment> getAllEquip() {
-        List<Equipment> equipments = equipmentRepository.findAll();
-        return equipments;
+        return equipmentRepository.findAll();
     }
 
 
