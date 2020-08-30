@@ -1,5 +1,6 @@
 package pl.dominik.cmms.entity.requests;
 
+import jdk.internal.jline.internal.Nullable;
 import org.hibernate.validator.constraints.NotBlank;
 import pl.dominik.cmms.entity.equipment.Equipment;
 import pl.dominik.cmms.entity.equipment.Status;
@@ -21,6 +22,7 @@ public class Accident {
     private LocalDateTime ended;
     private String endNote;
     private boolean dangerous;
+    @Nullable
     private double durationOffline;
 
     @NotBlank
