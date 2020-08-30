@@ -1,12 +1,12 @@
 package pl.dominik.cmms.entity.requests;
 
-import jdk.internal.jline.internal.Nullable;
 import org.hibernate.validator.constraints.NotBlank;
 import pl.dominik.cmms.entity.equipment.Equipment;
 import pl.dominik.cmms.entity.equipment.Status;
 import pl.dominik.cmms.entity.security.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -22,7 +22,7 @@ public class Accident {
     private LocalDateTime ended;
     private String endNote;
     private boolean dangerous;
-    @Nullable
+    @Null
     private double durationOffline;
 
     @NotBlank
