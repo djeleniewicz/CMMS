@@ -12,7 +12,7 @@ import java.util.List;
 public interface AccidentRepository extends JpaRepository<Accident, Long> {
 
     @Query(value = "SELECT a FROM accidents a WHERE a.status_id in " +
-            "(select s FROM status s where s.status!='Closed')", nativeQuery = true)
+            "(select s.id FROM status s where s.status!='Closed')", nativeQuery = true)
     List<Accident> findAllActiveAccdients();
     Accident findById(Long id);
 
