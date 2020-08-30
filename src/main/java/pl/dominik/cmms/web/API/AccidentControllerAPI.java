@@ -64,7 +64,7 @@ public class AccidentControllerAPI {
             @PathVariable(value = "id") Long accidentId, @Valid @RequestBody Accident accidentDetails) {
         Accident accident = accidentRepository.findById(accidentId);
         accident.setNote(accidentDetails.getNote());
-        accident.setStatus(statusRepository.findByStatus("Closed"));
+        accident.setStatus(statusRepository.findByStatus("Zakończone"));
         final Accident updatedAccident = accidentRepository.save(accident);
         return ResponseEntity.ok(updatedAccident);
     }
@@ -87,8 +87,8 @@ public class AccidentControllerAPI {
     @PostMapping("/user/add-accident")
     public Accident createAccidentsCreatedByUser(@Valid @RequestBody Accident accident) {
         accident.setCreated(LocalDateTime.now());
-        accident.setReportedBy(userRepository.findById((long) 9));
-        accident.setStatus(statusRepository.findByStatus("New"));
+        accident.setReportedBy(userRepository.findById((long) 23));
+        accident.setStatus(statusRepository.findByStatus("Nowy"));
         return accidentRepository.save(accident);
     }
 
@@ -108,4 +108,45 @@ public class AccidentControllerAPI {
         return ResponseEntity.ok(accidentRepository.save(updatedAccident));
     }
 
+    @GetMapping("/maintenance/accidents-active")
+    public List<Accident> getAllActiveAccidents() {
+        return accidentRepository.findAllActiveAccdients();
+    }
+
+    @PostMapping("/maintenance/add-accident")
+    public Accident createAccidentsCreatedByMaintenance(@Valid @RequestBody Accident accident) {
+        accident.setCreated(LocalDateTime.now());
+        accident.setReportedBy(userRepository.findById((long) 24));
+        accident.setStatus(statusRepository.findByStatus("Nowy"));
+        return accidentRepository.save(accident);
+    }
+
+    @GetMapping("/maintenance/take-accident/{id}")
+    public Accident getAccidentMaintenance(@PathVariable(value = "id") Long accidentId) {
+        return accidentRepository.findById(accidentId);
+    }
+
+    @PutMapping("/maintenance/take-accident/{id}")
+    public ResponseEntity<Accident> updateAccidentMaintenance(
+            @PathVariable(value = "id") Long accidentId) {
+        Accident accident = accidentRepository.findById(accidentId);
+        accident.setStatus(statusRepository.findByStatus("W trakcie naprawy"));
+        accident.setAssignedTo(userRepository.findById((long) 21));
+        return ResponseEntity.ok(accidentRepository.save(accident));
+    }
+
+    @GetMapping("/maintenance/end-accident/{id}")
+    public Accident getAccidentEndMaintenance(@PathVariable(value = "id") Long accidentId) {
+        return accidentRepository.findById(accidentId);
+    }
+
+    @PutMapping("/maintenance/end-accident/{id}")
+    public ResponseEntity<Accident> endAccidentMaintenance(
+            @PathVariable(value = "id") Long accidentId, @Valid @RequestBody Accident accidentDetails) {
+        Accident accident = accidentRepository.findById(accidentId);
+        accident.setStatus(statusRepository.findByStatus("Zamknięty"));
+        accident.setEndNote(accidentDetails.getEndNote());
+        accident.setEnded(LocalDateTime.now());
+        return ResponseEntity.ok(accidentRepository.save(accident));
+    }
 }

@@ -21,6 +21,7 @@ public class Accident {
     private LocalDateTime ended;
     private String endNote;
     private boolean dangerous;
+    private double durationOffline;
 
     @NotBlank
     @Size(min = 10)
@@ -144,5 +145,13 @@ public class Accident {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public double getDurationOffline() {
+        return durationOffline;
+    }
+
+    public void setDurationOffline(double durationOffline) {
+        durationOffline = durationOffline;
     }
 }
