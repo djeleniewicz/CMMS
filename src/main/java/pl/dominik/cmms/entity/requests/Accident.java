@@ -6,7 +6,6 @@ import pl.dominik.cmms.entity.equipment.Status;
 import pl.dominik.cmms.entity.security.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -22,8 +21,7 @@ public class Accident {
     private LocalDateTime ended;
     private String endNote;
     private boolean dangerous;
-    @Null
-    private double durationOffline;
+//    private double durationOffline;
 
     @NotBlank
     @Size(min = 10)
@@ -148,12 +146,5 @@ public class Accident {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-
-    public double getDurationOffline() {
-        return durationOffline;
-    }
-
-    public void setDurationOffline(double durationOffline) {
-        durationOffline = durationOffline;
-    }
+    
 }
